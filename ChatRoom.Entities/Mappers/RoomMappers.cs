@@ -11,8 +11,7 @@ namespace ChatRoom.Entities.Mappers
 			return roomDTO == null ? null : new Room
 			{
 				RoomId = roomDTO.RoomId,
-				StartReservation = roomDTO.StartReservation,
-				EndReservation = roomDTO.EndReservation
+				RoomName = roomDTO.RoomName
             };
 		}
 
@@ -21,8 +20,7 @@ namespace ChatRoom.Entities.Mappers
 			return room == null ? null : new RoomDTO
 			{
 				RoomId = room.RoomId,
-                StartReservation = room.StartReservation,
-                EndReservation = room.EndReservation
+				RoomName = room.RoomName
             };
         }
     }

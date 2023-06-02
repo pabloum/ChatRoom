@@ -1,4 +1,5 @@
-﻿using ChatRoom.Api.Installers;
+﻿using ChatRoom.Api.ChatHub;
+using ChatRoom.Api.Installers;
 using ChatRoom.Api.Middleware;
 
 namespace ChatRoom.Api
@@ -25,6 +26,7 @@ namespace ChatRoom.Api
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Chat Room API", Version = "v1" });
             });
 
+            services.AddSignalR();
             services.AddBusinessServices(configRoot);
             services.InjectAdditionalInterfaces();
         }
@@ -47,6 +49,13 @@ namespace ChatRoom.Api
             //app.UseAuthentication();
             //app.UseAuthorization();
             //app.UseResponseLogging();
+
+            app.UseRouting();
+
+            app.UseEndpoints(e =>
+            {
+                e.MapHub<HubImplementation>("/chat");
+            });
 
             app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.MapControllers();

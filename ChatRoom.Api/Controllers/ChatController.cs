@@ -12,6 +12,12 @@ namespace ChatRoom.Api.Controllers
 		public ChatController()
 		{
 		}
+
+		[HttpGet]
+		public IActionResult Index()
+		{
+			return Ok("Test chat endpoint");
+		}
 	}
 }
 

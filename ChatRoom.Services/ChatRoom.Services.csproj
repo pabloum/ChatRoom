@@ -13,6 +13,7 @@
     <None Remove="Providers\" />
     <None Remove="Providers\Contracts\" />
     <None Remove="Helpers\" />
+    <None Remove="Services\Implementations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -21,6 +22,7 @@
     <Folder Include="Providers\" />
     <Folder Include="Providers\Contracts\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Services\Implementations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChatRoom.Repository\ChatRoom.Repository.csproj" />

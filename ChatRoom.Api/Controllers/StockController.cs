@@ -1,4 +1,5 @@
 ﻿using System;
+using ChatRoom.Entities.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChatRoom.Api.Controllers
@@ -11,8 +12,8 @@ namespace ChatRoom.Api.Controllers
 		{
 		}
 
-		[HttpGet]
-		public IActionResult GetStock(string stock_code)
+		[HttpPost]
+		public ActionResult<Stock> GetStock(string stock_code)
 		{
 
 			return Ok(stock_code);

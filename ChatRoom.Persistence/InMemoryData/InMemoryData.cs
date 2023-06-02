@@ -7,6 +7,7 @@ namespace ChatRoom.Persistence.InMemoryData
     public class InMemoryData : IInMemoryData
     {
         private List<Room> _inMemoryRoom;
+        private List<Stock> _inMemoryStock;
 
         public InMemoryData()
         {
@@ -17,11 +18,29 @@ namespace ChatRoom.Persistence.InMemoryData
                 new Room { RoomId = 3, RoomName = "Literature"},
                 new Room { RoomId = 4, RoomName = "Programming"},
             };
+
+            _inMemoryStock = new List<Stock>
+            {
+                new Stock
+                {
+                    DateTime = DateTime.Now,
+                    Open = (decimal)181.03,
+                    High = (decimal)181.78,
+                    Low = (decimal)179.26,
+                    Close = (decimal)180.93,
+                    Volume = 39457561,
+                },
+            };
         }
 
-        public IEnumerable<Room> GetAll()
+        public IEnumerable<Room> GetAllRooms()
         {
             return _inMemoryRoom;
+        }
+
+        public IEnumerable<Stock> GetAllStocks()
+        {
+            return _inMemoryStock;
         }
     }
 }

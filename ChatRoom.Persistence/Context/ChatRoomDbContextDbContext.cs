@@ -12,6 +12,8 @@ namespace ChatRoom.Persistence.Context
 
 		public virtual DbSet<Room> Rooms { get; set; }
 		public virtual DbSet<Stock> Stocks { get; set; }
+		public virtual DbSet<Message> Messages { get; set; }
+		public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +27,18 @@ namespace ChatRoom.Persistence.Context
             {
                 entity.HasKey(s => s.Code);
                 entity.ToTable("Stock");
+            });
+
+            modelBuilder.Entity<Message>(entity =>
+            {
+                entity.HasKey(s => s.MessageId);
+                entity.ToTable("Message");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasKey(s => s.UserId);
+                entity.ToTable("User");
             });
         }
     }

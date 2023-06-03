@@ -15,7 +15,12 @@ namespace ChatRoom.Services.Services
 			_roomRepository = roomRepository;
         }
 
-		public IEnumerable<RoomDTO> SeeReservations()
+        public RoomDTO CreateRoom(RoomDTO roomDTO)
+        {
+            return _roomRepository.CreateRoom(roomDTO.MapToRoom()).MapToRoomDTO();
+        }
+
+        public IEnumerable<RoomDTO> SeeReservations()
 		{
 			return _roomRepository.SeeReservations().Select(r => r.MapToRoomDTO());
 		}

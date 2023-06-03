@@ -8,6 +8,7 @@ namespace ChatRoom.Services.Services.Contracts
 	public interface IRoomService : IService
 	{
         IEnumerable<RoomDTO> SeeReservations();
+        RoomDTO CreateRoom(RoomDTO roomDTO);
     }
 }
 

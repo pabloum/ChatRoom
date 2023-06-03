@@ -22,6 +22,13 @@ namespace ChatRoom.Api.Controllers
             var result = _roomService.SeeReservations();
             return Ok(result);
         }
+
+        [HttpPost]
+        public ActionResult<IEnumerable<RoomDTO>> CreateRoom([FromBody]RoomDTO roomDTO)
+        {
+            var result = _roomService.CreateRoom(roomDTO);
+            return Ok(result);
+        }
     }
 }
 

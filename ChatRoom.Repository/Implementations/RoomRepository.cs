@@ -19,6 +19,11 @@ namespace ChatRoom.Repository
         {
             return _useDataBase ? DbSet.AsNoTracking() : _inMemoryData.GetAllRooms();
         }
+
+        public Room CreateRoom(Room room)
+        {
+            return _useDataBase ? DbSet.Add(room).Entity : _inMemoryData.CreateRoom(room);
+        }
     }
 }
 

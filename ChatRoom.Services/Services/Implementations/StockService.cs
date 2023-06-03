@@ -1,24 +1,24 @@
 ﻿using System;
 using ChatRoom.Entities.Domain;
+using ChatRoom.Repository.Contracts;
+using ChatRoom.Repository;
+using ChatRoom.Services.Services.Contracts;
 
 namespace ChatRoom.Services.Services
 {
-	public class StockService
+	public class StockService : IStockService
     {
-        Stock GetStock(string stockCode)
-        {
-            var stock = new Stock
-            {
-                DateTime = DateTime.Now,
-                Open = (decimal)181.03,
-                High = (decimal)181.78,
-                Low = (decimal)179.26,
-                Close = (decimal)180.93,
-                Volume = 39457561,
-            };
+        private readonly IStockRepository _stockRepository;
 
+        public StockService(IStockRepository stockRepository)
+        {
+            _stockRepository = stockRepository;
+        }
+
+        public Stock GetStock(string stockCode)
+        {
+            var stock = _stockRepository.GetStock(stockCode);
             return stock;
         }
     }
 }
-

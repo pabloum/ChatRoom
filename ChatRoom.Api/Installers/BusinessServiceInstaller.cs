@@ -17,12 +17,12 @@ namespace ChatRoom.Api.Installers
             services.RegisterAllDirectImplementations<IRepository>(ServiceLifetime.Scoped);
             services.RegisterAllDirectImplementations<IProvider>(ServiceLifetime.Scoped);
 
-            services.AddDbContext<HotelBookingDbContext>(options =>
+            services.AddDbContext<ChatRoomDbContext>(options =>
                 options.UseSqlServer(configuration.GetValue<string>("ConnectionStrings:HotelBookinDatabase")));
 
             if (configuration.GetValue<bool>("UseDataBase"))
             {
-                using (var context = services.BuildServiceProvider().GetRequiredService<HotelBookingDbContext>())
+                using (var context = services.BuildServiceProvider().GetRequiredService<ChatRoomDbContext>())
                 {
                     context.Database.EnsureCreated();
                 }

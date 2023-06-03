@@ -9,10 +9,12 @@
   <ItemGroup>
     <None Remove="Base\" />
     <None Remove="Contracts\" />
+    <None Remove="Implementations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Base\" />
     <Folder Include="Contracts\" />
+    <Folder Include="Implementations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChatRoom.Entities\ChatRoom.Entities.csproj" />

@@ -23,6 +23,7 @@ namespace ChatRoom.Persistence.InMemoryData
             {
                 new Stock
                 {
+                    Code = "aapl.us",
                     DateTime = DateTime.Now,
                     Open = (decimal)181.03,
                     High = (decimal)181.78,
@@ -41,6 +42,11 @@ namespace ChatRoom.Persistence.InMemoryData
         public IEnumerable<Stock> GetAllStocks()
         {
             return _inMemoryStock;
+        }
+
+        public Stock GetStockByStockCode(string stockCode)
+        {
+            return _inMemoryStock.FirstOrDefault(s => s.Code == stockCode);
         }
     }
 }

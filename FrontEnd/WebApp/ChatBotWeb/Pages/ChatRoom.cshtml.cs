@@ -37,6 +37,11 @@ namespace ChatBotWeb.Pages
             Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
             Room = await _roomProvider.GetRoomSpecs(id.Value);
 
+            if(Room == null)
+            {
+                return NotFound();
+            }
+
             return Page();
         }
     }

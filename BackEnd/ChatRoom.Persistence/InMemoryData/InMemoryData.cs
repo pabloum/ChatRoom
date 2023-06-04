@@ -43,6 +43,16 @@ namespace ChatRoom.Persistence.InMemoryData
 
             _inMemoryMessages = new List<Message>
             {
+                new Message
+                {
+                    MessageId = 1,
+                    MessagePrompt = "Hello World!!",
+                    RoomId = 1,
+                    Room = _inMemoryRooms.FirstOrDefault(r => r.RoomId == 1),
+                    PostingTime = DateTime.Now,
+                    UserId = 1,
+                    User = _inMemoryUsers.FirstOrDefault(u => u.UserId == 1)
+                }
             };
         }
 
@@ -90,6 +100,11 @@ namespace ChatRoom.Persistence.InMemoryData
         public User GetUserById(int userId)
         {
             return _inMemoryUsers.FirstOrDefault(u => u.UserId == userId);
+        }
+
+        public Room GetRoomById(int roomId)
+        {
+            return _inMemoryRooms.FirstOrDefault(r => r.RoomId == roomId);
         }
     }
 }

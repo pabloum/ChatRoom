@@ -24,6 +24,13 @@ namespace ChatRoom.Repository
         {
             return _useDataBase ? DbSet.Add(room).Entity : _inMemoryData.CreateRoom(room);
         }
+
+        public Room GetById(int roomId)
+        {
+            return _useDataBase
+                ? DbSet.AsNoTracking().FirstOrDefault(r => r.RoomId == roomId)
+                : _inMemoryData.GetRoomById(roomId);
+        }
     }
 }
 

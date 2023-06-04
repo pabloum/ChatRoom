@@ -16,10 +16,16 @@ namespace Web.Providers.Implementations
             _serviceHandler = new ServiceHandler(); // TODO: Use DI
         }
 
-        public async Task<IEnumerable<string>> GetRoomNames()
+        public async Task<IEnumerable<Room>> GetRoomNames()
         {
             var response = await _serviceHandler.Get<IEnumerable<Room>>("api/Room/GetRooms");
-            return response != null ? response.Select(r => r.RoomName) : new List<string>();
+            return response != null ? response : new List<Room>();
+        }
+
+        public async Task<Room> GetRoomSpecs(int roomId)
+        {
+            var response = await _serviceHandler.Get<Room>($"api/Room/{roomId}");
+            return response;
         }
     }
 }

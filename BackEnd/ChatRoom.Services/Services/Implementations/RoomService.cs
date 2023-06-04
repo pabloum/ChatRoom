@@ -20,6 +20,11 @@ namespace ChatRoom.Services.Services
             return _roomRepository.CreateRoom(roomDTO.MapToRoom()).MapToRoomDTO();
         }
 
+        public RoomDTO GetById(int roomId)
+        {
+            return _roomRepository.GetById(roomId).MapToRoomDTO();
+        }
+
         public IEnumerable<RoomDTO> SeeReservations()
 		{
 			return _roomRepository.SeeReservations().Select(r => r.MapToRoomDTO());

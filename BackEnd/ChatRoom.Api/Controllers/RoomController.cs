@@ -23,6 +23,13 @@ namespace ChatRoom.Api.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{roomId}")]
+        public ActionResult<IEnumerable<RoomDTO>> GetRoomById(int roomId)
+        {
+            var result = _roomService.GetById(roomId);
+            return Ok(result);
+        }
+
         [HttpPost]
         public ActionResult<IEnumerable<RoomDTO>> CreateRoom([FromBody]RoomDTO roomDTO)
         {

@@ -14,7 +14,7 @@
         <ul class-"list-group">
             @foreach (var room in Model.Rooms)
             {
-                <li class-"list-group-item"><a href="#"> @room </a></li>
+                <li class-"list-group-item"><a href="ChatRoom/@room.RoomId"> @room.RoomName </a></li>
             }
         </ul>
     </div>

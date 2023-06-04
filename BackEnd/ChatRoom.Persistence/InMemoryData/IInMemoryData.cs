@@ -5,6 +5,7 @@ namespace ChatRoom.Persistence.InMemoryData
     public interface IInMemoryData
     {
         IEnumerable<Room> GetAllRooms();
+        Room GetRoomById(int roomId);
         Room CreateRoom(Room room);
         IEnumerable<Stock> GetAllStocks();
         Stock GetStockByStockCode(string stockCode);

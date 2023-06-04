@@ -19,6 +19,7 @@ namespace ChatRoom.Persistence.InMemoryData
                 new Room { RoomId = 2, RoomName = "Sports"},
                 new Room { RoomId = 3, RoomName = "Literature"},
                 new Room { RoomId = 4, RoomName = "Programming"},
+                new Room { RoomId = 4, RoomName = "Physics"},
             };
 
             _inMemoryStocks = new List<Stock>

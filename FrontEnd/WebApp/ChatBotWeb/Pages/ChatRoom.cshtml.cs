@@ -44,5 +44,25 @@ namespace ChatBotWeb.Pages
 
             return Page();
         }
+
+        [BindProperty]
+        public string NewMessage { get; set; }
+
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
+            //    Room = await _roomProvider.GetRoomSpecs(id.Value);
+            //    return Page();
+            //}
+
+            Room = await _roomProvider.GetRoomSpecs(id.Value);
+            await _messageProvider.CreateMessage(NewMessage, Room);
+
+
+            Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
+            return Page();
+        }
     }
 }

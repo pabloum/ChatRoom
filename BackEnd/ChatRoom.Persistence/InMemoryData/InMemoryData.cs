@@ -80,7 +80,7 @@ namespace ChatRoom.Persistence.InMemoryData
 
         public Message CreateMessage(Message message)
         {
-            message.RoomId = _inMemoryMessages.Max(r => r.MessageId) + 1;
+            message.MessageId = _inMemoryMessages.Max(r => r.MessageId) + 1;
             _inMemoryMessages.Add(message);
             return message;
         }

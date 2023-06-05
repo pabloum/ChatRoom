@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Web.Providers.Entities;
+using System.Text.Json;
 
 namespace Web.Providers.Implementations
 {
@@ -26,6 +27,13 @@ namespace Web.Providers.Implementations
         {
             var response = await _serviceHandler.Get<Room>($"api/Room/{roomId}");
             return response;
+        }
+
+        public async Task CreateNewRoom(string newRoomName)
+        {
+            var room = new Room { RoomId = 0, RoomName = newRoomName };
+            var response = await _serviceHandler.Post<Room>($"api/Room", JsonSerializer.Serialize(room));
+            //if (response == null) throw new Exception("Something went wrong");
         }
     }
 }

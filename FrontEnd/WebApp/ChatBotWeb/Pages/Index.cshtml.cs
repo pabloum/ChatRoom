@@ -24,5 +24,22 @@ public class IndexModel : PageModel
     {
         Rooms = await _roomProvider.GetRoomNames();
     }
+
+    [BindProperty]
+    public string NewRoomName { get; set; }
+
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+        {
+            Rooms = await _roomProvider.GetRoomNames();
+            return Page();
+        }
+
+        await _roomProvider.CreateNewRoom(NewRoomName);
+        Rooms = await _roomProvider.GetRoomNames();
+
+        return RedirectToPage("./Index");
+    }
 }
 

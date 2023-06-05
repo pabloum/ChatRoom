@@ -6,10 +6,10 @@
 <div class="row">
     <div class="col-md-8 offset-2">
         <h2>Chat Room: @Model.Room.RoomName </h2>
-        <ul class-"list-group">
+        <ul class="list-group">
             @foreach (var message in Model.Messages)
             {
-                <li class-"list-group-item">
+                <li class="list-group-item">
                     <div>
                         By: @message.User.Username:
                     </div>
@@ -28,6 +28,9 @@
 
 <div class="row">
     <div class="col-md-8 offset-2">
-        Enter your message here. <a>Send</a>
+
+        <label for="inputMessage" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="inputMessage" placeholder="Enter your message here">
+        <button type="button" class="btn btn-primary">Send</button>
     </div>
 </div>

@@ -8,7 +8,7 @@
     <h1 class="display-4">Welcome to the Chat application.</h1>
 </div>
 
-<div class="row'>
+<div class="row">
     <div class="col-md-8 offset-2">
         <h2>Available Chat Rooms</h2>
         <ul class-"list-group">
@@ -17,5 +17,19 @@
                 <li class-"list-group-item"><a href="ChatRoom/@room.RoomId"> @room.RoomName </a></li>
             }
         </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <form method="post">
+            <div class="mb-3">
+                <label for="roomName" class="form-label">Create new Room</label>
+                <input asp-for="NewRoomName" type="text" class="form-control" id="roomName" aria-describedby="roomHelp">
+                <span asp-validation-for="NewRoomName" class="text-danger"></span>
+                <div id="roomHelp" class="form-text">Type here the new room Name</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
 </div>

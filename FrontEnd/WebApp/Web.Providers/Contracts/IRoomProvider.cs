@@ -7,6 +7,7 @@ namespace Web.Providers.Contracts
 	{
         Task<IEnumerable<Room>> GetRoomNames();
         Task<Room> GetRoomSpecs(int roomId);
+        Task CreateNewRoom(string newRoomName);
     }
 }
 

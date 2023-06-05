@@ -29,7 +29,7 @@ namespace ChatRoom.Repository.Implementations
                     DbSet.AsNoTracking().Where(m => m.RoomId == roomId)
                 : _inMemoryData.GetMessegesByRoom(roomId);
 
-            return result.Take(50);
+            return result.Take(50).OrderBy(m => m.PostingTime);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace ChatRoom.Api.Controllers
         }
 
 		[HttpGet]
-		public async Task<ActionResult<Stock>> GetStock(string stock_code)
+		public async Task<ActionResult<string>> GetStock(string stock_code)
 		{
 			var stock = await _stockService.GetStock(stock_code);
 			return Ok(stock);

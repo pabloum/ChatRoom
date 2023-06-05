@@ -8,7 +8,7 @@ namespace ChatRoom.Services.Services
 {
 	public class StockService : IStockService
     {
-        public async Task<Stock> GetStock(string stockCode)
+        public async Task<string> GetStock(string stockCode)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri("https://stooq.com/q/l/");
@@ -61,11 +61,14 @@ namespace ChatRoom.Services.Services
                         }
                     }
 
-                    return stocks.FirstOrDefault();
+                    var sto = stocks.FirstOrDefault();
+                    var quote = $"{sto.Code} quote is ${sto.Close} per share";
+
+                    return quote;
                 }
             }
 
-            return default(Stock);
+            return String.Empty;
         }
     }
 }

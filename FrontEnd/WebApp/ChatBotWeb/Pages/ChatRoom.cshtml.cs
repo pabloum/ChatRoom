@@ -15,10 +15,8 @@ namespace ChatBotWeb.Pages
         private readonly IMessageProvider _messageProvider;
         private readonly IRoomProvider _roomProvider;
 
-        [BindProperty]
         public IEnumerable<Message> Messages { get; set; }
 
-        [BindProperty]
         public Room Room { get; set; }
 
         public ChatRoomModel()
@@ -37,7 +35,7 @@ namespace ChatBotWeb.Pages
             Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
             Room = await _roomProvider.GetRoomSpecs(id.Value);
 
-            if(Room == null)
+            if (Room == null)
             {
                 return NotFound();
             }
@@ -50,18 +48,19 @@ namespace ChatBotWeb.Pages
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
-            //    Room = await _roomProvider.GetRoomSpecs(id.Value);
-            //    return Page();
-            //}
-
             Room = await _roomProvider.GetRoomSpecs(id.Value);
+
+            if (!ModelState.IsValid)
+            {
+                Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
+                return Page();
+            }
+
             await _messageProvider.CreateMessage(NewMessage, Room);
-
-
             Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
+
+            ModelState.Clear();
+
             return Page();
         }
     }

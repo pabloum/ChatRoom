@@ -28,7 +28,7 @@
         <form method="post">
             <div class="mb-3">
                 <label for="inputMessage" class="form-label">Send message</label>
-                <input asp-for="NewMessage" type="text" class="form-control" id="inputMessage" placeholder="Enter your message here" />
+                <input asp-for="NewMessage" type="text" class="form-control" value="" id="inputMessage" placeholder="Enter your message here" />
                 <span asp-validation-for="NewMessage" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Send</button>

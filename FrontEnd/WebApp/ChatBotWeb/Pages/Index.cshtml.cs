@@ -11,7 +11,6 @@ public class IndexModel : PageModel
     private readonly ILogger<IndexModel> _logger;
     private readonly IRoomProvider _roomProvider;
 
-    [BindProperty]
     public IEnumerable<Room> Rooms { get; set; }
 
     public IndexModel(ILogger<IndexModel> logger)

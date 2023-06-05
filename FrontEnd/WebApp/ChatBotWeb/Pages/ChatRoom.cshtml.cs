@@ -14,7 +14,9 @@ namespace ChatBotWeb.Pages
     {
         private readonly IMessageProvider _messageProvider;
         private readonly IRoomProvider _roomProvider;
+        private readonly IStockProvider _stockProvider;
 
+        public int Id { get; set; }
         public IEnumerable<Message> Messages { get; set; }
 
         public Room Room { get; set; }
@@ -23,10 +25,12 @@ namespace ChatBotWeb.Pages
         {
             _messageProvider = new MessageProvider();
             _roomProvider = new RoomProvider();
+            _stockProvider = new StockProvider();
         }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            Id = id.Value;
             if (id == null)
             {
                 return NotFound();
@@ -46,8 +50,9 @@ namespace ChatBotWeb.Pages
         [BindProperty]
         public string NewMessage { get; set; }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostMessageAsync(int? id)
         {
+            Id = id.Value;
             Room = await _roomProvider.GetRoomSpecs(id.Value);
 
             if (!ModelState.IsValid)
@@ -60,6 +65,30 @@ namespace ChatBotWeb.Pages
             Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
 
             ModelState.Clear();
+
+            return Page();
+        }
+
+        //[BindProperty]
+        public string StockQuote { get; set; }
+
+        public async Task<IActionResult> OnPostStockAsync(int? id)
+        {
+            Id = id.Value;
+            Room = await _roomProvider.GetRoomSpecs(id.Value);
+            Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
+
+            var quote = await _stockProvider.GetStockQuote();
+
+            if (!String.IsNullOrEmpty(quote))
+            {
+                Messages = Messages.Append(new Message
+                {
+                    MessagePrompt = quote,
+                    PostingTime = DateTime.Now,
+                    User = new User { Name = "The Bot", Username = "bot" }
+                });
+            }
 
             return Page();
         }

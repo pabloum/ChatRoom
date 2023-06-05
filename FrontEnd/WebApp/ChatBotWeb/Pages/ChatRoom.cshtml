@@ -3,6 +3,18 @@
 @{
 }
 
+
+
+<div class="row">
+    <div class="col-md-2">
+        <form method="post" asp-page-handler="Stock">
+            <input asp-for="StockQuote" type="text" class="form-control" value="" id="inputMessage" placeholder="Stock code here" />
+            <button type="submit" class="btn btn-success" id="stockButton">Call Stock Bot</button>
+        </form>
+    </div>
+</div>
+
+
 <div class="row">
     <div class="col-md-8 offset-2">
         <h2>Chat Room: @Model.Room.RoomName </h2>
@@ -22,14 +34,13 @@
     </div>
 </div>
 
+<br />
 
 <div class="row">
     <div class="col-md-8 offset-2">
-        <form method="post">
+        <form method="post" asp-page-handler="Message">
             <div class="mb-3">
-                <label for="inputMessage" class="form-label">Send message</label>
                 <input asp-for="NewMessage" type="text" class="form-control" value="" id="inputMessage" placeholder="Enter your message here" />
-                <span asp-validation-for="NewMessage" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Send</button>
         </form>

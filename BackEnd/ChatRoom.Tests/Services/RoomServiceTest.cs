@@ -26,7 +26,7 @@ namespace ChatRoom.Tests.Services
         }
 
         [Fact]
-        public void TestGetAllReservations()
+        public void TestGetAllRooms()
         {
             //Arrange
             _mockRepository.Setup(r => r.SeeReservations()).Returns(MockedDataFactory.GetMockedRooms());

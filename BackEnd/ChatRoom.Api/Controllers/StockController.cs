@@ -16,10 +16,10 @@ namespace ChatRoom.Api.Controllers
 			_stockService = stockService;
         }
 
-		[HttpPost]
-		public ActionResult<Stock> GetStock(string stock_code)
+		[HttpGet]
+		public async Task<ActionResult<Stock>> GetStock(string stock_code)
 		{
-			var stock = _stockService.GetStock(stock_code);
+			var stock = await _stockService.GetStock(stock_code);
 			return Ok(stock);
 		}
 	}

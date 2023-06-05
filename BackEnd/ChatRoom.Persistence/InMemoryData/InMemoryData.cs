@@ -7,7 +7,6 @@ namespace ChatRoom.Persistence.InMemoryData
     public class InMemoryData : IInMemoryData
     {
         private List<Room> _inMemoryRooms;
-        private List<Stock> _inMemoryStocks;
         private List<User> _inMemoryUsers;
         private List<Message> _inMemoryMessages;
 
@@ -20,20 +19,6 @@ namespace ChatRoom.Persistence.InMemoryData
                 new Room { RoomId = 3, RoomName = "Literature"},
                 new Room { RoomId = 4, RoomName = "Programming"},
                 new Room { RoomId = 4, RoomName = "Physics"},
-            };
-
-            _inMemoryStocks = new List<Stock>
-            {
-                new Stock
-                {
-                    Code = "aapl.us",
-                    DateTime = DateTime.Now,
-                    Open = (decimal)181.03,
-                    High = (decimal)181.78,
-                    Low = (decimal)179.26,
-                    Close = (decimal)180.93,
-                    Volume = 39457561,
-                },
             };
 
             _inMemoryUsers = new List<User>
@@ -66,16 +51,6 @@ namespace ChatRoom.Persistence.InMemoryData
         public IEnumerable<Room> GetAllRooms()
         {
             return _inMemoryRooms;
-        }
-
-        public IEnumerable<Stock> GetAllStocks()
-        {
-            return _inMemoryStocks;
-        }
-
-        public Stock GetStockByStockCode(string stockCode)
-        {
-            return _inMemoryStocks.FirstOrDefault(s => s.Code == stockCode);
         }
 
         public Message CreateMessage(Message message)

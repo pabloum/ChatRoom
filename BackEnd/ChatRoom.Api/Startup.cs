@@ -45,6 +45,7 @@ namespace ChatRoom.Api
             }
 
             app.UseCors("AllowSpecificOrigins");
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             //app.UseAuthentication();
             //app.UseAuthorization();
@@ -57,7 +58,6 @@ namespace ChatRoom.Api
                 e.MapHub<HubImplementation>("/chat");
             });
 
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.MapControllers();
 
             app.Run();

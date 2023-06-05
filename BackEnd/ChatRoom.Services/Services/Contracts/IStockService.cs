@@ -6,7 +6,7 @@ namespace ChatRoom.Services.Services.Contracts
 {
 	public interface IStockService : IService
 	{
-		Stock GetStock(string stockCode);
+        Task<Stock> GetStock(string stockCode);
 	}
 }
 

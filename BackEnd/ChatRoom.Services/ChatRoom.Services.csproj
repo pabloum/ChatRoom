@@ -28,4 +28,7 @@
     <ProjectReference Include="..\ChatRoom.Repository\ChatRoom.Repository.csproj" />
     <ProjectReference Include="..\ChatRoom.Entities\ChatRoom.Entities.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Net.Http.Formatting.Extension" Version="5.2.3" />
+  </ItemGroup>
 </Project>

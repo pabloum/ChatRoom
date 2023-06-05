@@ -7,8 +7,6 @@ namespace ChatRoom.Persistence.InMemoryData
         IEnumerable<Room> GetAllRooms();
         Room GetRoomById(int roomId);
         Room CreateRoom(Room room);
-        IEnumerable<Stock> GetAllStocks();
-        Stock GetStockByStockCode(string stockCode);
         Message CreateMessage(Message message);
         IEnumerable<Message> GetMessegesByRoom(int roomId);
         User CreateUser(User user);

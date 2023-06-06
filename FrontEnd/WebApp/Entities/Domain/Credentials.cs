@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Web.Providers.Entities
+namespace Entities
 {
 	public class Credentials
 	{

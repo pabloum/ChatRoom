@@ -1,6 +1,6 @@
 ﻿using System;
 using Web.Providers.Contracts;
-using Web.Providers.Entities;
+using Entities;
 
 namespace Web.Providers.Implementations
 {

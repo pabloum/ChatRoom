@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json;
 using Web.Providers.Contracts;
-using Web.Providers.Entities;
+using Entities;
 
 namespace Web.Providers.Implementations
 {

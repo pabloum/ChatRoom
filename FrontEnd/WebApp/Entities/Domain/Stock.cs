@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Web.Providers.Entities
+namespace Entities
 {
 	public class Stock
 	{

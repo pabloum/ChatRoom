@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBotWeb", "ChatBotWeb\Ch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Providers", "Web.Providers\Web.Providers.csproj", "{B1D4A194-D6EF-468E-86E6-3850E01FC88D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security", "Security\Security.csproj", "{4C1C5CE1-20D9-4480-B4D6-673662644A68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{267D6E43-FE39-4FB0-ADAC-A925B99B3A06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{B1D4A194-D6EF-468E-86E6-3850E01FC88D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1D4A194-D6EF-468E-86E6-3850E01FC88D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1D4A194-D6EF-468E-86E6-3850E01FC88D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C1C5CE1-20D9-4480-B4D6-673662644A68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C1C5CE1-20D9-4480-B4D6-673662644A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C1C5CE1-20D9-4480-B4D6-673662644A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C1C5CE1-20D9-4480-B4D6-673662644A68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{267D6E43-FE39-4FB0-ADAC-A925B99B3A06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{267D6E43-FE39-4FB0-ADAC-A925B99B3A06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{267D6E43-FE39-4FB0-ADAC-A925B99B3A06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{267D6E43-FE39-4FB0-ADAC-A925B99B3A06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

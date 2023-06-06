@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Web.Providers.Contracts;
-using Web.Providers.Entities;
+using Entities;
 using Web.Providers.Implementations;
 
 namespace ChatBotWeb.Pages;

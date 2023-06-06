@@ -10,16 +10,17 @@
     <None Remove="Contracts\" />
     <None Remove="Implementations\" />
     <None Remove="ServiceHandler\" />
-    <None Remove="Entities\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
     <Folder Include="Implementations\" />
     <Folder Include="ServiceHandler\" />
-    <Folder Include="Entities\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Net.Http.Formatting.Extension" Version="5.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
 </Project>

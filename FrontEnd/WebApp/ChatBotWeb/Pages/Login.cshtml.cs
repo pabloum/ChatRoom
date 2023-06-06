@@ -6,12 +6,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Web.Providers.Entities;
+using Entities;
+using Security;
 
 namespace ChatBotWeb.Pages
 {
 	public class LoginModel : PageModel
     {
+        private readonly IAuthentication _auth;
+
+        public LoginModel(IAuthentication auth)
+        {
+            _auth = auth;
+        }
+
         [BindProperty]
         public Credentials Credentials { get; set; }
 
@@ -24,7 +32,7 @@ namespace ChatBotWeb.Pages
             if (!ModelState.IsValid) { return Page(); }
 
             //Verifycredentials
-            if (Credentials.UserName == "admin" && Credentials.Password == "password")
+            if (_auth.CheckCredentials(Credentials))
             {
                 //creating the security context
 

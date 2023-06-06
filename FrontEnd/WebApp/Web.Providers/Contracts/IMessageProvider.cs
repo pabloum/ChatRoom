@@ -1,5 +1,5 @@
 ﻿using System;
-using Web.Providers.Entities;
+using Entities;
 
 namespace Web.Providers.Contracts
 {

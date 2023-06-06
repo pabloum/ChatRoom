@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Web.Providers.Contracts
 {
 	public interface IStockProvider

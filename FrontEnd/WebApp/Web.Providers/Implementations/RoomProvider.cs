@@ -4,7 +4,7 @@ using Web.Providers.Contracts;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Web.Providers.Entities;
+using Entities;
 using System.Text.Json;
 
 namespace Web.Providers.Implementations

@@ -1,4 +1,5 @@
 ﻿using System;
+using Security;
 using Web.Providers;
 using Web.Providers.Contracts;
 using Web.Providers.Implementations;
@@ -26,6 +27,8 @@ namespace ChatBotWeb
             services.AddControllers();
             services.AddEndpointsApiExplorer();
 
+            services.AddScoped<IAuthentication, Authentication>();
+            
             services.AddScoped<IMessageProvider, MessageProvider>();
             services.AddScoped<IRoomProvider, RoomProvider>();
             services.AddScoped<IStockProvider, StockProvider>();

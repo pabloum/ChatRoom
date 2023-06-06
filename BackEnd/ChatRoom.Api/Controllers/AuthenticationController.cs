@@ -22,7 +22,7 @@ namespace ChatRoom.Api.Controllers
         [HttpPost]
         public IActionResult Index([FromBody]Credentials credentials)
         {
-            if (credentials.UserName == "puribe" && credentials.Password == "123")
+            if (credentials.UserName == "puribe" && credentials.Password == "123") //TODO: Create a proper validation
             {
                 var claims = new List<Claim>
                     {

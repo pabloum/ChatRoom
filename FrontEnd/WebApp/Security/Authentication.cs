@@ -6,12 +6,13 @@ namespace Security
 	public interface IAuthentication
 	{
 		bool CheckCredentials(Credentials credentials);
-	}
+        void RegisterNewUser(Credentials credentials);
+    }
 
 
     public class Authentication : IAuthentication
 	{
-        private IEnumerable<Credentials> _credentials; // temporal 
+        private IEnumerable<Credentials> _credentials; // temporal. To be replaced with BEs tables
 
         public Authentication()
         {
@@ -26,6 +27,14 @@ namespace Security
         public bool CheckCredentials(Credentials credentials)
         {
             return _credentials.Where(c => c.UserName == credentials.UserName && c.Password == credentials.Password).Any();
+        }
+
+        public void RegisterNewUser(Credentials credentials)
+        {
+            if (!_credentials.Where(c => c.UserName == credentials.UserName).Any())
+            {
+                _credentials = _credentials.Append(credentials);
+            }
         }
     }
 }

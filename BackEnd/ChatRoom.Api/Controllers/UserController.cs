@@ -2,6 +2,7 @@
 using ChatRoom.Entities.Domain;
 using ChatRoom.Entities.DTO;
 using ChatRoom.Services.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChatRoom.Api.Controllers
@@ -18,6 +19,7 @@ namespace ChatRoom.Api.Controllers
 
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public ActionResult<User> GetUserById(int id)
         {

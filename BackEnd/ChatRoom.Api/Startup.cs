@@ -1,6 +1,9 @@
-﻿using ChatRoom.Api.ChatHub;
+﻿using System.Text;
+using ChatRoom.Api.ChatHub;
 using ChatRoom.Api.Installers;
 using ChatRoom.Api.Middleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ChatRoom.Api
 {
@@ -15,7 +18,23 @@ namespace ChatRoom.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddAuthentication().AddOAuth();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme  = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configRoot.GetValue<string>("SecurityKey"))),
+                    ValidateLifetime = true,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
 
             services.AddControllers();
 
@@ -43,21 +62,22 @@ namespace ChatRoom.Api
             {
                 app.UseHttpsRedirection();
             }
+            app.UseCors("AllowSpecificOrigins");
+
+            app.UseRouting();
+            app.MapControllers();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors("AllowSpecificOrigins");
             app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-            app.UseRouting();
 
             app.UseEndpoints(e =>
             {
                 e.MapHub<HubImplementation>("/chat");
             });
 
-            app.MapControllers();
 
             app.Run();
         }

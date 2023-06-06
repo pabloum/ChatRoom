@@ -1,10 +1,12 @@
 ﻿using System;
 using ChatRoom.Entities.DTO;
 using ChatRoom.Services.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChatRoom.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class RoomController : ControllerBase

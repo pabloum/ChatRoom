@@ -15,7 +15,7 @@ namespace ChatRoom.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddAuthentication( ...
+            //services.AddAuthentication().AddOAuth();
 
             services.AddControllers();
 
@@ -44,12 +44,11 @@ namespace ChatRoom.Api
                 app.UseHttpsRedirection();
             }
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseCors("AllowSpecificOrigins");
             app.UseMiddleware<ExceptionHandlingMiddleware>();
-
-            //app.UseAuthentication();
-            //app.UseAuthorization();
-            //app.UseResponseLogging();
 
             app.UseRouting();
 

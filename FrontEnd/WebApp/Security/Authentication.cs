@@ -11,7 +11,7 @@ namespace Security
 
     public class Authentication : IAuthentication
 	{
-        private IEnumerable<Credentials> _credentials;
+        private IEnumerable<Credentials> _credentials; // temporal 
 
         public Authentication()
         {
@@ -22,6 +22,7 @@ namespace Security
                 new Credentials { UserName = "jbs", Password = "pass2"},
             };
         }
+
         public bool CheckCredentials(Credentials credentials)
         {
             return _credentials.Where(c => c.UserName == credentials.UserName && c.Password == credentials.Password).Any();

@@ -37,7 +37,7 @@ namespace ChatBotWeb
             services.AddControllers();
             services.AddEndpointsApiExplorer();
 
-            services.AddSingleton<IAuthentication, Authentication>();
+            services.AddScoped<IAuthentication, Authentication>();
             
             services.AddScoped<IMessageProvider, MessageProvider>();
             services.AddScoped<IRoomProvider, RoomProvider>();

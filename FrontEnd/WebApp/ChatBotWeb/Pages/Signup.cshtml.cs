@@ -19,20 +19,20 @@ namespace ChatBotWeb.Pages
         }
 
         [BindProperty]
-        public Credentials Credentials { get; set; }
+        public User NewUser { get; set; }
 
         public void OnGet()
         {
         }
 
-        public IActionResult OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _auth.RegisterNewUser(Credentials);
+            await _auth.RegisterNewUser(NewUser);
 
             return Redirect("/Login");
         }

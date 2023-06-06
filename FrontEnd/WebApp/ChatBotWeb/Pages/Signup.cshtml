@@ -12,15 +12,21 @@
         <form method="post">
 
             <div class="mb-3">
-                <label for="roomName" class="form-label">Username</label>
-                <input asp-for="Credentials.UserName" type="text" class="form-control" id="roomName" aria-describedby="roomHelp" />
-                <span asp-validation-for="Credentials.UserName" class="text-danger"></span>
+                <label for="name" class="form-label">Name</label>
+                <input asp-for="NewUser.Name" type="text" class="form-control" id="name" aria-describedby="roomHelp" />
+                <span asp-validation-for="NewUser.Name" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label for="roomName" class="form-label">Password</label>
-                <input asp-for="Credentials.Password" type="password" class="form-control" id="roomName" aria-describedby="roomHelp" />
-                <span asp-validation-for="Credentials.Password" class="text-danger"></span>
+                <label for="username" class="form-label">Username</label>
+                <input asp-for="NewUser.Username" type="text" class="form-control" id="username" aria-describedby="roomHelp" />
+                <span asp-validation-for="NewUser.Username" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input asp-for="NewUser.Password" type="password" class="form-control" id="password" aria-describedby="roomHelp" />
+                <span asp-validation-for="NewUser.Password" class="text-danger"></span>
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>

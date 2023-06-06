@@ -26,11 +26,11 @@ namespace Web.Providers.Implementations
             {
                 UserId = 1,
                 Name = "Pablo Uribe",
-                Username = "puribe"
+                Username = "puribe",
+                Password = "123"
             };
 
             var response = await _serviceHandler.Post<Message>($"api/Message/{room.RoomId}", JsonSerializer.Serialize(message));
-            //if (response == null) throw new Exception("Something went wrong");
             return response;
         }
 

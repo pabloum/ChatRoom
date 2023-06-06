@@ -6,7 +6,8 @@ namespace ChatRoom.Services.Services.Contracts
 {
 	public interface IUserService : IService
 	{
-        User GetUserById(int id);
+        User GetUserByUsername(string username);
+        bool CheckCredentials(User credentials);
         User CreateUser(User id);
     }
 }

@@ -10,7 +10,7 @@ namespace ChatRoom.Persistence.InMemoryData
         Message CreateMessage(Message message);
         IEnumerable<Message> GetMessegesByRoom(int roomId);
         User CreateUser(User user);
-        User GetUserById(int userId);
+        User GetUserByUsername(string username);
     }
 }
 

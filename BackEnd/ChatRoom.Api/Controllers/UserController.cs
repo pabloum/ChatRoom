@@ -21,9 +21,9 @@ namespace ChatRoom.Api.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public ActionResult<User> GetUserById(int id)
+        public ActionResult<User> GetUserById(string username)
         {
-            var result = _userService.GetUserById(id);
+            var result = _userService.GetUserByUsername(username);
             return Ok(result);
         }
 
@@ -31,6 +31,13 @@ namespace ChatRoom.Api.Controllers
         public ActionResult<User> CreateUser([FromBody] User user)
         {
             var result = _userService.CreateUser(user);
+            return Ok(result);
+        }
+
+        [HttpPost("authentication/checkCredentials")]
+        public ActionResult<bool> CheckCredentials([FromBody] User user)
+        {
+            var result = _userService.CheckCredentials(user);
             return Ok(result);
         }
     }

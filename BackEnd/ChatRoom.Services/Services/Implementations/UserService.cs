@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using ChatRoom.Entities.Domain;
 using ChatRoom.Repository.Contracts;
 using ChatRoom.Services.Services.Contracts;
@@ -19,9 +20,15 @@ namespace ChatRoom.Services.Services.Implementations
             return _userRepository.CreateUser(user);
         }
 
-        public User GetUserById(int id)
+        public User GetUserByUsername(string username)
         {
-            return _userRepository.GetUserById(id);
+            return _userRepository.GetUserByUsername(username);
+        }
+
+        public bool CheckCredentials(User credentials)
+        {
+            var user = _userRepository.GetUserByUsername(credentials.Username);
+            return user.Username == credentials.Username && user.Password == credentials.Password;
         }
     }
 }

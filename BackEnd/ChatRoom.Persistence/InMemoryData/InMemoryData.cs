@@ -23,7 +23,10 @@ namespace ChatRoom.Persistence.InMemoryData
 
             _inMemoryUsers = new List<User>
             {
-                new User { UserId = 1, Name = "Pablo Uribe", Username = "puribe" },
+                new User { UserId = 1, Name = "Pablo Uribe", Username = "puribe", Password = "123"},
+                new User { UserId = 1, Name = "Mr Evaluator", Username = "evaluator", Password = "123" },
+                new User { UserId = 1, Name = "Leo Messi", Username = "lmessi", Password = "123" },
+                new User { UserId = 1, Name = "Rafa Nadal", Username = "rnadal", Password = "123" },
             };
 
             _inMemoryMessages = new List<Message>
@@ -72,9 +75,9 @@ namespace ChatRoom.Persistence.InMemoryData
             return user;
         }
 
-        public User GetUserById(int userId)
+        public User GetUserByUsername(string username)
         {
-            return _inMemoryUsers.FirstOrDefault(u => u.UserId == userId);
+            return _inMemoryUsers.FirstOrDefault(u => u.Username == username);
         }
 
         public Room GetRoomById(int roomId)

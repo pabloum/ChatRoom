@@ -6,7 +6,7 @@ namespace ChatRoom.Repository.Contracts
 {
 	public interface IUserRepository : IRepository
 	{
-		User GetUserById(int userId);
+		User GetUserByUsername(string username);
 		User CreateUser(User user);
 	}
 }

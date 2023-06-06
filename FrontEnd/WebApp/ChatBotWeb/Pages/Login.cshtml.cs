@@ -32,7 +32,7 @@ namespace ChatBotWeb.Pages
             if (!ModelState.IsValid) { return Page(); }
 
             //Verifycredentials
-            if (_auth.CheckCredentials(Credentials))
+            if (await _auth.CheckCredentials(Credentials))
             {
                 //creating the security context
 

@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using ChatRoom.Entities.Domain;
+using ChatRoom.Services.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -12,17 +14,19 @@ namespace ChatRoom.Api.Controllers
     [Route("api/[controller]")]
     public class AuthenticationController : ControllerBase
     {
+        private readonly IUserService _userService;
         private string SecurityKey;
 
-		public AuthenticationController(IConfiguration configuration)
+		public AuthenticationController(IConfiguration configuration, IUserService userService)
 		{
             SecurityKey = configuration.GetSection("SecurityKey").Value;
+            _userService = userService;
         }
 
         [HttpPost]
-        public IActionResult Index([FromBody]Credentials credentials)
+        public IActionResult Index([FromBody]User credentials)
         {
-            if (credentials.UserName == "puribe" && credentials.Password == "123") //TODO: Create a proper validation
+            if (_userService.CheckCredentials(credentials))
             {
                 var claims = new List<Claim>
                     {
@@ -58,12 +62,6 @@ namespace ChatRoom.Api.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
-    }
-
-    public class Credentials
-    {
-        public string UserName { get; set; }
-        public string Password { get; set; }
     }
 }
 

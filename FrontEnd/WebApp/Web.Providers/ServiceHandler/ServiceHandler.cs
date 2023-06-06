@@ -60,7 +60,9 @@ namespace Web.Providers
         {
             object hardcodedPayload = new //TODO update this from the BE to admit other users 
             {
-                userName = "puribe",
+                id = 1,
+                name = "Pablo Uribe",
+                username = "puribe",
                 password = "123"
             };
 

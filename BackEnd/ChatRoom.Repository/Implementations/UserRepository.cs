@@ -23,11 +23,11 @@ namespace ChatRoom.Repository.Implementations
                     : _inMemoryData.CreateUser(user);
         }
 
-        public User GetUserById(int userId)
+        public User GetUserByUsername(string username)
         {
             return _useDataBase ?
-                    DbSet.AsNoTracking().FirstOrDefault(u => u.UserId == userId)
-                : _inMemoryData.GetUserById(userId);
+                    DbSet.AsNoTracking().FirstOrDefault(u => u.Username == username)
+                : _inMemoryData.GetUserByUsername(username);
         }
     }
 }

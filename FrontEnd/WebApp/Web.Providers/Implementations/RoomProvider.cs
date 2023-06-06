@@ -34,7 +34,6 @@ namespace Web.Providers.Implementations
         {
             var room = new Room { RoomId = 0, RoomName = newRoomName };
             var response = await _serviceHandler.Post<Room>($"api/Room", JsonSerializer.Serialize(room));
-            //if (response == null) throw new Exception("Something went wrong");
         }
     }
 }

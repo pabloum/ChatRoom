@@ -1,40 +1,42 @@
 ﻿using System;
+using System.Text.Json;
 using Entities;
+using Web.Providers;
 
 namespace Security
 {
 	public interface IAuthentication
 	{
-		bool CheckCredentials(Credentials credentials);
-        void RegisterNewUser(Credentials credentials);
+        Task<bool> CheckCredentials(Credentials credentials);
+        Task RegisterNewUser(User credentials);
     }
 
 
     public class Authentication : IAuthentication
 	{
-        private IEnumerable<Credentials> _credentials; // temporal. To be replaced with BEs tables
+        private readonly IServiceHandler _serviceHandler;
 
-        public Authentication()
+        public Authentication(IServiceHandler serviceHandler)
         {
-            _credentials = new List<Credentials>
+            _serviceHandler = serviceHandler;
+        }
+
+        public async Task<bool> CheckCredentials(Credentials credentials)
+        {
+            var user = new User
             {
-                new Credentials { UserName = "admin", Password = "123"},
-                new Credentials { UserName = "pum", Password = "pass"},
-                new Credentials { UserName = "jbs", Password = "pass2"},
+                UserId = 0,
+                Username = credentials.UserName,
+                Name = String.Empty,
+                Password = credentials.Password
             };
+            var response = await _serviceHandler.Post<bool>($"api/User/authentication/checkCredentials", JsonSerializer.Serialize(user));
+            return response;
         }
 
-        public bool CheckCredentials(Credentials credentials)
+        public async Task RegisterNewUser(User credentials)
         {
-            return _credentials.Where(c => c.UserName == credentials.UserName && c.Password == credentials.Password).Any();
-        }
-
-        public void RegisterNewUser(Credentials credentials)
-        {
-            if (!_credentials.Where(c => c.UserName == credentials.UserName).Any())
-            {
-                _credentials = _credentials.Append(credentials);
-            }
+            var response = await _serviceHandler.Post<User>("api/User", JsonSerializer.Serialize(credentials));
         }
     }
 }

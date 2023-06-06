@@ -28,7 +28,7 @@ namespace ChatRoom.Api.Controllers
         }
 
         [HttpPost("{roomId}")]
-        public ActionResult<RoomDTO> CreateMessageInRoom(int roomId, [FromBody] Message message)
+        public ActionResult<RoomDTO> CreateMessageInRoom(int roomId, [FromBody] MessageDTO message)
         {
             var result = _messageService.CreateMessage(roomId, message);
             return Ok(result);

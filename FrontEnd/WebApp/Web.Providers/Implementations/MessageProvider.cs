@@ -10,36 +10,23 @@ namespace Web.Providers.Implementations
 	public class MessageProvider : IMessageProvider
 	{
         private IServiceHandler _serviceHandler;
-        private IHttpContextAccessor _httpContextAccessor;
+        private IHttpContextProvider _httpContextProvider;
 
-        public MessageProvider(IServiceHandler serviceHandler, IHttpContextAccessor httpContextAccessor)
+        public MessageProvider(IServiceHandler serviceHandler, IHttpContextProvider httpContextProvider)
 		{
             _serviceHandler = serviceHandler;
-            _httpContextAccessor = httpContextAccessor;
+            _httpContextProvider = httpContextProvider;
         }
 
         public async Task<Message> CreateMessage(string messagePrompt, Room room)
         {
-            var message = new Message();
-            message.MessagePrompt = messagePrompt;
-            message.PostingTime = DateTime.Now;
-            message.RoomId = room.RoomId;
-            message.Room = room;
-
-            HttpContext httpContext = _httpContextAccessor.HttpContext;
-            if (httpContext != null && httpContext.User.Identity.IsAuthenticated)
+            var message = new Message()
             {
-                string username = httpContext.User.FindFirst("Username").Value;
-
-                message.UserId = 1;
-                message.User = new User //todo: take this from cookie
-                {
-                    UserId = 1,
-                    Name = "Pablo Uribe",
-                    Username = username,
-                    Password = "123"
-                };
-            }
+                MessagePrompt = messagePrompt,
+                PostingTime = DateTime.Now,
+                RoomId = room.RoomId,
+                Username = _httpContextProvider.GetClaim("Username"),
+            };
 
             var response = await _serviceHandler.Post<Message>($"api/Message/{room.RoomId}", JsonSerializer.Serialize(message));
             return response;

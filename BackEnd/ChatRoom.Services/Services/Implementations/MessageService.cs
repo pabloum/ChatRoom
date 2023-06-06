@@ -1,5 +1,7 @@
 ﻿using System;
 using ChatRoom.Entities.Domain;
+using ChatRoom.Entities.DTO;
+using ChatRoom.Entities.Mappers;
 using ChatRoom.Repository.Contracts;
 using ChatRoom.Services.Services.Contracts;
 
@@ -14,9 +16,10 @@ namespace ChatRoom.Services.Services.Implementations
             _messageRepository = messageRepository;
         }
 
-        public Message CreateMessage(int roomId, Message message)
+        public Message CreateMessage(int roomId, MessageDTO message)
         {
-            return _messageRepository.CreateMessage(roomId, message);
+
+            return _messageRepository.CreateMessage(roomId, message.MapToMessage());
         }
 
         public IEnumerable<Message> GetMessagesByRoom(int roomId)

@@ -38,6 +38,7 @@ namespace ChatBotWeb
             services.AddEndpointsApiExplorer();
 
             services.AddScoped<IAuthentication, Authentication>();
+            services.AddScoped<IHttpContextProvider, HttpContextProvider>();
             
             services.AddScoped<IMessageProvider, MessageProvider>();
             services.AddScoped<IRoomProvider, RoomProvider>();

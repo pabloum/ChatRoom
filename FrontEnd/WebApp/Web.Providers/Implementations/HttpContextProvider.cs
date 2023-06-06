@@ -1,0 +1,30 @@
+﻿using System;
+using Entities;
+using Microsoft.AspNetCore.Http;
+using Web.Providers.Contracts;
+
+namespace Web.Providers.Implementations
+{
+    public class HttpContextProvider : IHttpContextProvider
+    {
+        private IHttpContextAccessor _httpContextAccessor;
+
+        public HttpContextProvider(IHttpContextAccessor httpContextAccessor)
+		{
+			_httpContextAccessor = httpContextAccessor;
+		}
+
+		public string GetClaim(string claimName)
+		{
+            HttpContext httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext != null && httpContext.User.Identity.IsAuthenticated)
+            {
+                string claim = httpContext.User.FindFirst(claimName).Value;
+
+                return claim;
+            }
+            return String.Empty;
+        }
+	}
+}
+

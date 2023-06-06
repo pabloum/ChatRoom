@@ -8,7 +8,7 @@ namespace ChatRoom.Entities.Mappers
 	{
 		public static Room MapToRoom(this RoomDTO roomDTO)
 		{
-			return roomDTO == null ? null : new Room
+			return new Room
 			{
 				RoomId = roomDTO.RoomId,
 				RoomName = roomDTO.RoomName
@@ -17,7 +17,7 @@ namespace ChatRoom.Entities.Mappers
 
         public static RoomDTO MapToRoomDTO(this Room room)
         {
-			return room == null ? null : new RoomDTO
+			return new RoomDTO
 			{
 				RoomId = room.RoomId,
 				RoomName = room.RoomName

@@ -1,11 +1,11 @@
 ﻿using System;
+using ChatRoom.Entities.Domain;
 
-namespace Entities
+namespace ChatRoom.Entities.DTO
 {
-	public class Message
+	public class MessageDTO
 	{
         public int RoomId { get; set; }
-        public string RoomName { get; set; }
         public string? MessagePrompt { get; set; }
         public DateTime PostingTime { get; set; }
         public string Username { get; set; }

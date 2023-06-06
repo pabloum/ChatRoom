@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using ChatRoom.Entities.Domain;
+using ChatRoom.Entities.Mappers;
 using ChatRoom.Services.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -24,9 +25,9 @@ namespace ChatRoom.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index([FromBody]User credentials)
+        public IActionResult GenerateToken([FromBody]Credentials credentials)
         {
-            if (_userService.CheckCredentials(credentials))
+            if (_userService.CheckCredentials(credentials.MapCredentialsToUser()))
             {
                 var claims = new List<Claim>
                 {

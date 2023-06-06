@@ -5,17 +5,18 @@ using System.Text;
 using System.Text.Json;
 using Entities;
 using Microsoft.AspNetCore.Http;
+using Web.Providers.Contracts;
 
 namespace Web.Providers
 {
     public class ServiceHandler : IServiceHandler
     {
         private HttpClient client;
-        private IHttpContextAccessor _httpContextAccessor;
+        private IHttpContextProvider _httpContextProvider;
 
-        public ServiceHandler(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
+        public ServiceHandler(HttpClient httpClient, IHttpContextProvider httpContextProvider)
         {
-            _httpContextAccessor = httpContextAccessor;
+            _httpContextProvider = httpContextProvider;
             client = httpClient;
             client.BaseAddress = new Uri("https://localhost:2701/");
             client.DefaultRequestHeaders.Accept.Clear();
@@ -56,28 +57,20 @@ namespace Web.Providers
 
         private async Task<string> GenerateToken()
         {
-            HttpContext httpContext = _httpContextAccessor.HttpContext;
-            if (httpContext != null && httpContext.User.Identity.IsAuthenticated)
+            string username = _httpContextProvider.GetClaim("Username");
+
+            var payload = new
             {
-                string username = httpContext.User.FindFirst("Username").Value;
-                //string role = httpContext.User.FindFirst(ClaimTypes.Role).Value;
+                username = _httpContextProvider.GetClaim("Username"),
+                password = "123" //TODO: retrieve this  from a save place
+            };
 
-                object hardcodedPayload = new //todo: take this from cookie
-                {
-                    id = 1,
-                    name = "Pablo Uribe",
-                    username = username,
-                    password = "123"
-                };
+            var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("api/Authentication", content);
 
-                HttpContent content = new StringContent(JsonSerializer.Serialize(hardcodedPayload), Encoding.UTF8, "application/json");
-
-                var response = await client.PostAsync("api/Authentication", content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return (await response.Content.ReadAsAsync<TokenStructure>()).access_token;
-                }
+            if (response.IsSuccessStatusCode)
+            {
+                return (await response.Content.ReadAsAsync<TokenStructure>()).access_token;
             }
 
             return String.Empty;

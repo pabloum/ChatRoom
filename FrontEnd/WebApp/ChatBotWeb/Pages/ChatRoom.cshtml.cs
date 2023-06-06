@@ -88,7 +88,7 @@ namespace ChatBotWeb.Pages
                 {
                     MessagePrompt = quote,
                     PostingTime = DateTime.Now,
-                    Username = "decoupledBot"
+                    User = new User { Username = "decoupledBot" }
                 });
             }
 

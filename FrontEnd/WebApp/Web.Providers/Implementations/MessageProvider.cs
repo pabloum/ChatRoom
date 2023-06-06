@@ -4,6 +4,7 @@ using Web.Providers.Contracts;
 using Entities;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using Entities.DTO;
 
 namespace Web.Providers.Implementations
 {
@@ -20,7 +21,7 @@ namespace Web.Providers.Implementations
 
         public async Task<Message> CreateMessage(string messagePrompt, Room room)
         {
-            var message = new Message()
+            var message = new MessageCreateDTO()
             {
                 MessagePrompt = messagePrompt,
                 PostingTime = DateTime.Now,

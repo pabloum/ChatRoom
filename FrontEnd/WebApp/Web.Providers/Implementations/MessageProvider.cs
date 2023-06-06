@@ -22,7 +22,7 @@ namespace Web.Providers.Implementations
             message.RoomId = room.RoomId;
             message.Room = room;
             message.UserId = 1;
-            message.User = new User
+            message.User = new User //todo: take this from cookie
             {
                 UserId = 1,
                 Name = "Pablo Uribe",

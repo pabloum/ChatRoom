@@ -5,12 +5,6 @@ using System.Text.Json;
 
 namespace Web.Providers
 {
-    public interface IServiceHandler
-    {
-        Task<T> Get<T>(string url);
-        Task<T> Post<T>(string url, string payload);
-    }
-
     public class ServiceHandler : IServiceHandler
     {
         private HttpClient client;
@@ -58,7 +52,7 @@ namespace Web.Providers
 
         private async Task<string> GenerateToken()
         {
-            object hardcodedPayload = new //TODO update this from the BE to admit other users 
+            object hardcodedPayload = new //todo: take this from cookie
             {
                 id = 1,
                 name = "Pablo Uribe",

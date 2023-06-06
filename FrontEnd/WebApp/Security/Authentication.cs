@@ -5,13 +5,6 @@ using Web.Providers;
 
 namespace Security
 {
-	public interface IAuthentication
-	{
-        Task<bool> CheckCredentials(Credentials credentials);
-        Task RegisterNewUser(User credentials);
-    }
-
-
     public class Authentication : IAuthentication
 	{
         private readonly IServiceHandler _serviceHandler;

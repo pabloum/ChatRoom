@@ -19,15 +19,11 @@ namespace Web.Providers
             _httpContextProvider = httpContextProvider;
             client = httpClient;
             client.BaseAddress = new Uri("https://localhost:2701/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public async Task<T> Get<T>(string url)
         {
-            var bearerToken = await GenerateToken();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-
+            await GenerateToken();
             var response = await client.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
@@ -40,12 +36,8 @@ namespace Web.Providers
 
         public async Task<T> Post<T>(string url, string payload)
         {
-            var bearerToken = await GenerateToken();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-
-            HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync(url, content);
+            await GenerateToken();
+            var response = await client.PostAsync(url, CreateContent(payload));
 
             if (response.IsSuccessStatusCode)
             {
@@ -55,25 +47,31 @@ namespace Web.Providers
             return default(T);
         }
 
-        private async Task<string> GenerateToken()
+        private async Task GenerateToken()
         {
             string username = _httpContextProvider.GetClaim("Username");
 
-            var payload = new
+            var payload = JsonSerializer.Serialize(new
             {
                 username = _httpContextProvider.GetClaim("Username"),
                 password = "123" //TODO: retrieve this  from a save place
-            };
+            });
 
-            var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("api/Authentication", content);
+            var response = await client.PostAsync("api/Authentication", CreateContent(payload));
 
             if (response.IsSuccessStatusCode)
             {
-                return (await response.Content.ReadAsAsync<TokenStructure>()).access_token;
-            }
+                var bearerToken = (await response.Content.ReadAsAsync<TokenStructure>()).access_token;
 
-            return String.Empty;
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            }
+        }
+
+        private StringContent? CreateContent(string payload)
+        {
+            return new StringContent(payload, Encoding.UTF8, "application/json");
         }
     }
 

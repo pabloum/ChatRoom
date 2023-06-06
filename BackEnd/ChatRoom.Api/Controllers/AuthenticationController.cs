@@ -29,11 +29,11 @@ namespace ChatRoom.Api.Controllers
             if (_userService.CheckCredentials(credentials))
             {
                 var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, "admin"),
-                        new Claim(ClaimTypes.Email, "admin@pum.com"),
-                        new Claim("Department", "Evaluator"),
-                    };
+                {
+                    new Claim(ClaimTypes.Name, "admin"),
+                    new Claim(ClaimTypes.Email, "admin@pum.com"),
+                    new Claim("Department", "Evaluator"),
+                };
 
                 var expiresAt = DateTime.Now.AddHours(1);
 

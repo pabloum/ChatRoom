@@ -38,8 +38,8 @@ namespace ChatBotWeb.Pages
 
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, "admin"),
-                    new Claim(ClaimTypes.Email, "admin@pum.com"),
+                    new Claim("Username", Credentials.UserName),
+                    new Claim(ClaimTypes.Email, $"{Credentials.UserName}@pum.com"),
                     new Claim("Department", "Evaluator"),
                 };
 

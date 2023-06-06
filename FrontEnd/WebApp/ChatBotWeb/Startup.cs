@@ -44,6 +44,8 @@ namespace ChatBotWeb
             services.AddScoped<IStockProvider, StockProvider>();
             services.AddScoped<IServiceHandler, ServiceHandler>();
 
+            services.AddHttpContextAccessor();
+
             services.AddHttpClient();
             // services.AddHttpClient("BackendApi", client =>
             // {

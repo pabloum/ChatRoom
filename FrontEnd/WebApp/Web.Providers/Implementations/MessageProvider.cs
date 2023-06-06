@@ -2,16 +2,20 @@
 using System.Text.Json;
 using Web.Providers.Contracts;
 using Entities;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace Web.Providers.Implementations
 {
 	public class MessageProvider : IMessageProvider
 	{
         private IServiceHandler _serviceHandler;
+        private IHttpContextAccessor _httpContextAccessor;
 
-        public MessageProvider(IServiceHandler serviceHandler)
+        public MessageProvider(IServiceHandler serviceHandler, IHttpContextAccessor httpContextAccessor)
 		{
             _serviceHandler = serviceHandler;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<Message> CreateMessage(string messagePrompt, Room room)
@@ -21,14 +25,21 @@ namespace Web.Providers.Implementations
             message.PostingTime = DateTime.Now;
             message.RoomId = room.RoomId;
             message.Room = room;
-            message.UserId = 1;
-            message.User = new User //todo: take this from cookie
+
+            HttpContext httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext != null && httpContext.User.Identity.IsAuthenticated)
             {
-                UserId = 1,
-                Name = "Pablo Uribe",
-                Username = "puribe",
-                Password = "123"
-            };
+                string username = httpContext.User.FindFirst("Username").Value;
+
+                message.UserId = 1;
+                message.User = new User //todo: take this from cookie
+                {
+                    UserId = 1,
+                    Name = "Pablo Uribe",
+                    Username = username,
+                    Password = "123"
+                };
+            }
 
             var response = await _serviceHandler.Post<Message>($"api/Message/{room.RoomId}", JsonSerializer.Serialize(message));
             return response;

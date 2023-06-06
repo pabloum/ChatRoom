@@ -20,6 +20,7 @@ namespace ChatBotWeb
             services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options =>
             {
                 options.Cookie.Name = "MyCookieAuth";
+                options.LoginPath = "/Login";
             });
 
             //services.AddRazorPages();
@@ -52,11 +53,11 @@ namespace ChatBotWeb
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
-
             app.UseRouting();
             app.MapRazorPages();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.Run();
         }

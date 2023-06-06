@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Web.Providers.Contracts;
 using Entities;
 using Web.Providers.Implementations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ChatBotWeb.Pages
 {
+    [Authorize]
 	public class ChatRoomModel : PageModel
     {
         private readonly IMessageProvider _messageProvider;

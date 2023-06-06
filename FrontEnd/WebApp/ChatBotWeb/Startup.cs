@@ -21,6 +21,13 @@ namespace ChatBotWeb
             {
                 options.Cookie.Name = "MyCookieAuth";
                 options.LoginPath = "/Login";
+                options.AccessDeniedPath = "/AccesDenied";
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("MustBeEvaluator",
+                    policy => policy.RequireClaim("Department", "Evaluator"));
             });
 
             //services.AddRazorPages();

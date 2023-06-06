@@ -40,6 +40,7 @@ namespace ChatBotWeb.Pages
                 {
                     new Claim(ClaimTypes.Name, "admin"),
                     new Claim(ClaimTypes.Email, "admin@pum.com"),
+                    new Claim("Department", "Evaluator"),
                 };
 
                 var identity = new ClaimsIdentity(claims, "MyCookieAuth");

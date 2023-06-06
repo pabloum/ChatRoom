@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using Security;
 using Web.Providers;
 using Web.Providers.Contracts;
@@ -43,6 +45,12 @@ namespace ChatBotWeb
             services.AddScoped<IServiceHandler, ServiceHandler>();
 
             services.AddHttpClient();
+            // services.AddHttpClient("BackendApi", client =>
+            // {
+            //     client.BaseAddress = new Uri("https://localhost:2701/");
+            //     client.DefaultRequestHeaders.Accept.Clear();
+            //     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            // });
 
             //services.AddSignalR();
         }

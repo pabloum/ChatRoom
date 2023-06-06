@@ -1,10 +1,26 @@
 
-IF NOT EXISTS (SELECT TOP 1 [RoomId] FROM Room)
+IF NOT EXISTS (SELECT TOP 1 [RoomId] FROM [dbo].[Room])
 BEGIN 
-    INSERT INTO Room VALUES 
-    ('2023-06-01', '2023-06-03'),
-    ('2023-06-04', '2023-06-06'),
-    ('2023-06-07', '2023-06-09'),
-    ('2023-06-10', '2023-06-13'),
-    ('2023-06-14', '2023-06-16')
+    INSERT INTO [dbo].[Room] VALUES 
+    ('General Knowledge'),
+    ('Sports'),
+    ('Literature'),
+    ('Programming'),
+    ('Physics'),
+    ('SQL')
+END
+
+IF NOT EXISTS (SELECT TOP 1 [MessageId] FROM [dbo].[Message])
+BEGIN 
+    INSERT INTO [dbo].[Message] VALUES 
+    (1, 'Default Room 1 Message', GETDATE(), 1),
+    (2, 'Default Room 2 Message', GETUTCDATE(), 2),
+    (3, 'Default Room 3 Message', GETDATE(), 1)
+END
+
+IF NOT EXISTS (SELECT TOP 1 [UserId] FROM [dbo].[User])
+BEGIN 
+    INSERT INTO [dbo].[User] VALUES 
+    ('Pablo Uribe', 'puribe'),
+    ('Evaluator 1', 'evaluator')
 END

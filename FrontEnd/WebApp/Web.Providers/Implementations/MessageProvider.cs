@@ -7,11 +7,11 @@ namespace Web.Providers.Implementations
 {
 	public class MessageProvider : IMessageProvider
 	{
-        private ServiceHandler _serviceHandler;
+        private IServiceHandler _serviceHandler;
 
-        public MessageProvider()
+        public MessageProvider(IServiceHandler serviceHandler)
 		{
-            _serviceHandler = new ServiceHandler(); // TODO: Use DI
+            _serviceHandler = serviceHandler;
         }
 
         public async Task<Message> CreateMessage(string messagePrompt, Room room)

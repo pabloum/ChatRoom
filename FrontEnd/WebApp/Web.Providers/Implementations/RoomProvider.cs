@@ -11,10 +11,11 @@ namespace Web.Providers.Implementations
 {
 	public class RoomProvider : IRoomProvider
 	{
-        private ServiceHandler _serviceHandler;
-		public RoomProvider()
+        private IServiceHandler _serviceHandler;
+
+		public RoomProvider(IServiceHandler serviceHandler)
 		{
-            _serviceHandler = new ServiceHandler(); // TODO: Use DI
+            _serviceHandler = serviceHandler;
         }
 
         public async Task<IEnumerable<Room>> GetRoomNames()

@@ -6,11 +6,11 @@ namespace Web.Providers.Implementations
 {
 	public class StockProvider : IStockProvider
     {
-        private ServiceHandler _serviceHandler;
+        private IServiceHandler _serviceHandler;
 
-        public StockProvider()
+        public StockProvider(IServiceHandler serviceHandler)
 		{
-			_serviceHandler = new ServiceHandler(); //TODO: use DI
+			_serviceHandler = serviceHandler;
 		}
 
 		public async Task<string> GetStockQuote(string stockCode = "aapl.us")

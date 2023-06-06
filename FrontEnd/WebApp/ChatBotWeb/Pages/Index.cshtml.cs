@@ -13,10 +13,10 @@ public class IndexModel : PageModel
 
     public IEnumerable<Room> Rooms { get; set; }
 
-    public IndexModel(ILogger<IndexModel> logger)
+    public IndexModel(ILogger<IndexModel> logger, IRoomProvider roomProvider)
     {
         _logger = logger;
-        _roomProvider = new RoomProvider(); //TODO: Use DI later
+        _roomProvider = roomProvider;
     }
 
     public async Task OnGetAsync()

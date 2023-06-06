@@ -4,13 +4,19 @@ using System.Text;
 
 namespace Web.Providers
 {
-    public class ServiceHandler
+    public interface IServiceHandler
+    {
+        Task<T> Get<T>(string url);
+        Task<T> Post<T>(string url, string payload);
+    }
+
+    public class ServiceHandler : IServiceHandler
     {
         private HttpClient client;
 
-        public ServiceHandler()
+        public ServiceHandler(HttpClient httpClient)
         {
-            client = new HttpClient(); //TODO: Use DI
+            client = httpClient;
             client.BaseAddress = new Uri("https://localhost:2701/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

@@ -21,11 +21,11 @@ namespace ChatBotWeb.Pages
 
         public Room Room { get; set; }
 
-        public ChatRoomModel()
+        public ChatRoomModel(IMessageProvider messageProvider, IRoomProvider roomProvider, IStockProvider stockProvider)
         {
-            _messageProvider = new MessageProvider();
-            _roomProvider = new RoomProvider();
-            _stockProvider = new StockProvider();
+            _messageProvider = messageProvider;
+            _roomProvider = roomProvider;
+            _stockProvider = stockProvider;
         }
 
         public async Task<IActionResult> OnGetAsync(int? id)

@@ -1,0 +1,29 @@
+﻿@page
+@model ChatBotWeb.Pages.SignupModel
+@{
+}
+
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+
+        <h2>Sign up</h2>
+
+        <form method="post">
+
+            <div class="mb-3">
+                <label for="roomName" class="form-label">Username</label>
+                <input asp-for="Credentials.UserName" type="text" class="form-control" id="roomName" aria-describedby="roomHelp" />
+                <span asp-validation-for="Credentials.UserName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="roomName" class="form-label">Password</label>
+                <input asp-for="Credentials.Password" type="password" class="form-control" id="roomName" aria-describedby="roomHelp" />
+                <span asp-validation-for="Credentials.Password" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</div>

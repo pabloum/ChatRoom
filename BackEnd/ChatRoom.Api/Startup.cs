@@ -46,6 +46,7 @@ namespace ChatRoom.Api
             });
 
             services.AddSignalR();
+            services.AddHttpClient();
             services.AddBusinessServices(configRoot);
             services.InjectAdditionalInterfaces();
         }

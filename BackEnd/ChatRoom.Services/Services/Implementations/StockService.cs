@@ -8,15 +8,21 @@ namespace ChatRoom.Services.Services
 {
 	public class StockService : IStockService
     {
+        private HttpClient _httpClient;
+
+        public StockService(HttpClient client)
+        {
+            _httpClient = client;
+        }
+
         public async Task<string> GetStock(string stockCode)
         {
-            var client = new HttpClient();
-            client.BaseAddress = new Uri("https://stooq.com/q/l/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.BaseAddress = new Uri("https://stooq.com/q/l/");
+            _httpClient.DefaultRequestHeaders.Accept.Clear();
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             //var stockCodeExample = "aapl.us";
-            var response = await client.GetAsync($"?s={stockCode}&f=sd2t2ohlcv&h&e=csv");
+            var response = await _httpClient.GetAsync($"?s={stockCode}&f=sd2t2ohlcv&h&e=csv");
 
             if (response.IsSuccessStatusCode)
             {

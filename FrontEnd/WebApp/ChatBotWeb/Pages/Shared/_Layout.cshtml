@@ -36,6 +36,14 @@
                         }
                     </ul>
                 </div>
+                <div>
+                    @if (base.User.Identity.IsAuthenticated)
+                    {
+                        <div class="navbar-collapse collapse me-2 text-dark">
+                            @base.User.Claims.First(c => c.Type == "Username").Value
+                        </div>
+                    }
+                </div>
             </div>
         </nav>
     </header>

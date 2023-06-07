@@ -13,9 +13,9 @@ namespace Web.Providers.Implementations
 			_serviceHandler = serviceHandler;
 		}
 
-		public async Task<string> GetStockQuote(string stockCode = "aapl.us")
+		public async Task<string> GetStockQuote(int roomId, string stockCode = "aapl.us")
 		{
-            var response = await _serviceHandler.Get<string>($"api/Stock?stock_code={stockCode}");
+            var response = await _serviceHandler.Get<string>($"api/Stock?roomId={roomId}&stock_code={stockCode}");
 			return response;
         }
 	}

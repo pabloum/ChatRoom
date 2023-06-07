@@ -4,7 +4,7 @@ namespace Web.Providers.Contracts
 {
 	public interface IStockProvider
 	{
-        Task<string> GetStockQuote(string stockCode = "aapl.us");
+        Task<string> GetStockQuote(int roomId, string stockCode = "aapl.us");
     }
 }
 

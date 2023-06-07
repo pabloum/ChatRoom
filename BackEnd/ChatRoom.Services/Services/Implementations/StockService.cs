@@ -18,7 +18,7 @@ namespace ChatRoom.Services.Services
             _meesageService = messageService;
         }
 
-        public async Task<string> GetStock(string stockCode)
+        public async Task<string> GetStock(int roomId, string stockCode)
         {
             //var stockCodeExample = "aapl.us";
             var response = await _requestHandler.RequestStock(stockCode);
@@ -29,9 +29,9 @@ namespace ChatRoom.Services.Services
                 {
                     var stock = _csvParser.ParseCsvToStock(await content.ReadAsStringAsync());
                     var quote = $"{stock.Code} quote is ${stock.Close} per share";
-                    _meesageService.CreateMessage(1, new MessageDTO
+                    _meesageService.CreateMessage(roomId, new MessageDTO
                     {
-                        RoomId = 1,
+                        RoomId = roomId,
                         MessagePrompt = quote,
                         PostingTime = DateTime.Now,
                         Username = "TheStockBot"

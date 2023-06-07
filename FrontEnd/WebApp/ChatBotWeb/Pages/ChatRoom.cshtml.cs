@@ -74,7 +74,7 @@ namespace ChatBotWeb.Pages
         public async Task<IActionResult> OnPostStockAsync(int? id)
         {
             Room = await _roomProvider.GetRoomSpecs(id.Value);
-            var quote = await _stockProvider.GetStockQuote();
+            var quote = await _stockProvider.GetStockQuote(id.Value/*, StockQuote*/);
             Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
 
             return Page();

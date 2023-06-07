@@ -10,16 +10,21 @@ namespace ChatRoom.Services.Services.Implementations
 	public class MessageService : IMessageService
 	{
         private readonly IMessageRepository _messageRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IUserRepository _userRepository;
 
-        public MessageService(IMessageRepository messageRepository)
+        public MessageService(IMessageRepository messageRepository, IRoomRepository roomRepository, IUserRepository userRepository)
 		{
             _messageRepository = messageRepository;
+            _roomRepository = roomRepository;
+            _userRepository = userRepository;
         }
 
         public Message CreateMessage(int roomId, MessageDTO message)
         {
-
-            return _messageRepository.CreateMessage(roomId, message.MapToMessage());
+            var room = _roomRepository.GetById(roomId);
+            var user = _userRepository.GetUserByUsername(message.Username) ;
+            return _messageRepository.CreateMessage(roomId, message.MapToMessage(room, user));
         }
 
         public IEnumerable<Message> GetMessagesByRoom(int roomId)

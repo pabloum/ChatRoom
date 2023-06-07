@@ -2,7 +2,7 @@
 using ChatRoom.Entities.Domain;
 using ChatRoom.Entities.DTO;
 
-namespace ChatRoom.Entities.Mappers
+namespace ChatRoom.Services.Mappers
 {
 	public static class MessageMappers
 	{

@@ -1,22 +1,21 @@
-﻿using ChatRoom.Entities.Domain;
-using ChatRoom.Services.Services.Contracts;
-using System.Net.Http.Headers;
-using Microsoft.VisualBasic.FileIO;
-using System.Globalization;
+﻿using ChatRoom.Services.Services.Contracts;
 using ChatRoom.Common.HttpRequest;
 using ChatRoom.Common.FileParsers;
+using ChatRoom.Entities.DTO;
 
 namespace ChatRoom.Services.Services
 {
 	public class StockService : IStockService
     {
-        private IRequestHandler _requestHandler;
-        private ICsvParser _csvParser;
+        private readonly IRequestHandler _requestHandler;
+        private readonly ICsvParser _csvParser;
+        private readonly IMessageService _meesageService;
 
-        public StockService(IRequestHandler requestHandler, ICsvParser csvParser)
+        public StockService(IRequestHandler requestHandler, ICsvParser csvParser, IMessageService messageService)
         {
             _requestHandler = requestHandler;
             _csvParser = csvParser;
+            _meesageService = messageService;
         }
 
         public async Task<string> GetStock(string stockCode)
@@ -29,7 +28,15 @@ namespace ChatRoom.Services.Services
                 using (HttpContent content = response.Content)
                 {
                     var stock = _csvParser.ParseCsvToStock(await content.ReadAsStringAsync());
-                    return $"{stock.Code} quote is ${stock.Close} per share";
+                    var quote = $"{stock.Code} quote is ${stock.Close} per share";
+                    _meesageService.CreateMessage(1, new MessageDTO
+                    {
+                        RoomId = 1,
+                        MessagePrompt = quote,
+                        PostingTime = DateTime.Now,
+                        Username = "TheStockBot"
+                    });
+                    return quote;
                 }
             }
 

@@ -18,15 +18,16 @@ namespace ChatRoom.Persistence.InMemoryData
                 new Room { RoomId = 2, RoomName = "Sports"},
                 new Room { RoomId = 3, RoomName = "Literature"},
                 new Room { RoomId = 4, RoomName = "Programming"},
-                new Room { RoomId = 4, RoomName = "Physics"},
+                new Room { RoomId = 5, RoomName = "Physics"},
             };
 
             _inMemoryUsers = new List<User>
             {
                 new User { UserId = 1, Name = "Pablo Uribe", Username = "puribe", Password = "123"},
-                new User { UserId = 1, Name = "Mr Evaluator", Username = "evaluator", Password = "123" },
-                new User { UserId = 1, Name = "Leo Messi", Username = "lmessi", Password = "123" },
-                new User { UserId = 1, Name = "Rafa Nadal", Username = "rnadal", Password = "123" },
+                new User { UserId = 2, Name = "Mr Evaluator", Username = "evaluator", Password = "123" },
+                new User { UserId = 3, Name = "Leo Messi", Username = "lmessi", Password = "123" },
+                new User { UserId = 4, Name = "Rafa Nadal", Username = "rnadal", Password = "123" },
+                new User { UserId = 5, Name = "Bot", Username = "TheStockBot", Password = "123"}
             };
 
             _inMemoryMessages = new List<Message>

@@ -18,7 +18,6 @@ namespace ChatBotWeb.Pages
         private readonly IRoomProvider _roomProvider;
         private readonly IStockProvider _stockProvider;
 
-        public int Id { get; set; }
         public IEnumerable<Message> Messages { get; set; }
 
         public Room Room { get; set; }
@@ -32,7 +31,6 @@ namespace ChatBotWeb.Pages
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            Id = id.Value;
             if (id == null)
             {
                 return NotFound();
@@ -54,7 +52,6 @@ namespace ChatBotWeb.Pages
 
         public async Task<IActionResult> OnPostMessageAsync(int? id)
         {
-            Id = id.Value;
             Room = await _roomProvider.GetRoomSpecs(id.Value);
 
             if (!ModelState.IsValid)
@@ -76,21 +73,9 @@ namespace ChatBotWeb.Pages
 
         public async Task<IActionResult> OnPostStockAsync(int? id)
         {
-            Id = id.Value;
             Room = await _roomProvider.GetRoomSpecs(id.Value);
-            Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
-
             var quote = await _stockProvider.GetStockQuote();
-
-            if (!String.IsNullOrEmpty(quote))
-            {
-                Messages = Messages.Append(new Message
-                {
-                    MessagePrompt = quote,
-                    PostingTime = DateTime.Now,
-                    User = new User { Username = "decoupledBot" }
-                });
-            }
+            Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
 
             return Page();
         }

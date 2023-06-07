@@ -1,4 +1,6 @@
-﻿using ChatRoom.Persistence.Context;
+﻿using ChatRoom.Common.FileParsers;
+using ChatRoom.Common.HttpRequest;
+using ChatRoom.Persistence.Context;
 using ChatRoom.Persistence.InMemoryData;
 using ChatRoom.Repository.Base;
 using ChatRoom.Security;
@@ -34,6 +36,8 @@ namespace ChatRoom.Api.Installers
         {
             services.AddSingleton<IInMemoryData, InMemoryData>();
             services.AddScoped<IAuthentication, Authentication>();
+            services.AddScoped<IRequestHandler, RequestHandler>();
+            services.AddScoped<ICsvParser, CsvParser>();
         }
     }
 }

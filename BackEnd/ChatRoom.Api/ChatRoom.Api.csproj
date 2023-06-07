@@ -41,5 +41,8 @@
     <ProjectReference Include="..\ChatRoom.Entities\ChatRoom.Entities.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\ChatRoom.Security\ChatRoom.Security.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 ﻿using ChatRoom.Persistence.Context;
 using ChatRoom.Persistence.InMemoryData;
 using ChatRoom.Repository.Base;
+using ChatRoom.Security;
 using ChatRoom.Services.Base;
 using ChatRoom.Services.Providers.Contracts;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,7 @@ namespace ChatRoom.Api.Installers
         public static void InjectAdditionalInterfaces(this IServiceCollection services)
         {
             services.AddSingleton<IInMemoryData, InMemoryData>();
+            services.AddScoped<IAuthentication, Authentication>();
         }
     }
 }

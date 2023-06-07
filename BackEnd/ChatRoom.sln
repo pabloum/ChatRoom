@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatRoom.Tests", "ChatRoom.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatRoom.Persistence", "ChatRoom.Persistence\ChatRoom.Persistence.csproj", "{210E2A8B-B68D-416A-BD1D-688352E4CD20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatRoom.Security", "ChatRoom.Security\ChatRoom.Security.csproj", "{E712D53E-72C1-4B53-B879-9EA89832CB5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{210E2A8B-B68D-416A-BD1D-688352E4CD20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{210E2A8B-B68D-416A-BD1D-688352E4CD20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{210E2A8B-B68D-416A-BD1D-688352E4CD20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E712D53E-72C1-4B53-B879-9EA89832CB5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E712D53E-72C1-4B53-B879-9EA89832CB5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E712D53E-72C1-4B53-B879-9EA89832CB5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E712D53E-72C1-4B53-B879-9EA89832CB5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,6 +15,7 @@ namespace Web.Providers.Implementations
 
 		public async Task<string> GetStockQuote(int roomId, string stockCode = "aapl.us")
 		{
+			if (String.IsNullOrEmpty(stockCode)) stockCode = "aapl.us";
             var response = await _serviceHandler.Get<string>($"api/Stock?roomId={roomId}&stock_code={stockCode}");
 			return response;
         }

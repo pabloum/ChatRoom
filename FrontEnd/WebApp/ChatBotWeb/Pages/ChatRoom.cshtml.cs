@@ -39,11 +39,6 @@ namespace ChatBotWeb.Pages
             Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
             Room = await _roomProvider.GetRoomSpecs(id.Value);
 
-            if (Room == null)
-            {
-                return NotFound();
-            }
-
             return Page();
         }
 
@@ -54,27 +49,22 @@ namespace ChatBotWeb.Pages
         {
             Room = await _roomProvider.GetRoomSpecs(id.Value);
 
-            if (!ModelState.IsValid)
+            if (!String.IsNullOrEmpty(NewMessage))
             {
-                Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
-                return Page();
+                await _messageProvider.CreateMessage(NewMessage, Room);
             }
 
-            await _messageProvider.CreateMessage(NewMessage, Room);
             Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
-
-            ModelState.Clear();
-
             return Page();
         }
 
-        //[BindProperty]
+        [BindProperty]
         public string StockQuote { get; set; }
 
         public async Task<IActionResult> OnPostStockAsync(int? id)
         {
             Room = await _roomProvider.GetRoomSpecs(id.Value);
-            var quote = await _stockProvider.GetStockQuote(id.Value/*, StockQuote*/);
+            await _stockProvider.GetStockQuote(id.Value, StockQuote);
             Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
 
             return Page();

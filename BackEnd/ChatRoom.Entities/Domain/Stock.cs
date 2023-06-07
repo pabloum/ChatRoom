@@ -4,12 +4,12 @@ namespace ChatRoom.Entities.Domain
 	public class Stock
 	{
 		public string Code { get; set; }
-		public DateTime DateTime { get; set; }
-		public decimal? Open { get; set; }
-		public decimal? High { get; set; }
-		public decimal? Low { get; set; }
-		public decimal? Close { get; set; }
-		public long Volume { get; set; }
+		public string DateTime { get; set; }
+		public string Open { get; set; }
+		public string High { get; set; }
+		public string Low { get; set; }
+		public string Close { get; set; }
+		public string Volume { get; set; }
 	}
 }
 

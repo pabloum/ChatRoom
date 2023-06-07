@@ -34,19 +34,12 @@ namespace ChatRoom.Common.FileParsers
 
                     Stock stock = new Stock();
                     stock.Code = fields[0];
-                    stock.DateTime = DateTime.Parse(fields[1] + "T" + fields[2]);
-
-                    decimal.TryParse(fields[3], NumberStyles.Number, CultureInfo.InvariantCulture, out var Open);
-                    decimal.TryParse(fields[4], NumberStyles.Number, CultureInfo.InvariantCulture, out var high);
-                    decimal.TryParse(fields[5], NumberStyles.Number, CultureInfo.InvariantCulture, out var low);
-                    decimal.TryParse(fields[6], NumberStyles.Number, CultureInfo.InvariantCulture, out var close);
-
-                    stock.Open = Open;
-                    stock.High = high;
-                    stock.Low = low;
-                    stock.Close = close;
-
-                    stock.Volume = long.Parse(fields[7]);
+                    stock.DateTime = fields[1] + "T" + fields[2];
+                    stock.Open = fields[3];
+                    stock.High = fields[4];
+                    stock.Low = fields[5];
+                    stock.Close = fields[6];
+                    stock.Volume = fields[7];
 
                     stocks.Add(stock);
                 }

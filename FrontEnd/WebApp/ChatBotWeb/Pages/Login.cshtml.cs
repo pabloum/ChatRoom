@@ -23,12 +23,20 @@ namespace ChatBotWeb.Pages
         [BindProperty]
         public Credentials Credentials { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (base.User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Index");
+            }
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPost()
         {
+            if (base.User.Identity.IsAuthenticated) { return Redirect("/Index"); }
+
             if (!ModelState.IsValid) { return Page(); }
 
             //Verifycredentials

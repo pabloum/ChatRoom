@@ -21,12 +21,20 @@ namespace ChatBotWeb.Pages
         [BindProperty]
         public User NewUser { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (base.User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Index");
+            }
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (base.User.Identity.IsAuthenticated) { return Redirect("/Index"); }
+
             if (!ModelState.IsValid)
             {
                 return Page();

@@ -42,7 +42,13 @@ namespace ChatBotWeb.Pages
 
             await _auth.RegisterNewUser(NewUser);
 
-            return Redirect("/Login");
+            // if (registration succesful) 
+            await _auth.LoginUser(new Credentials
+            {
+                UserName = NewUser.Username, Password = NewUser.Password
+            });
+
+            return Redirect("/Index");
         }
     }
 }

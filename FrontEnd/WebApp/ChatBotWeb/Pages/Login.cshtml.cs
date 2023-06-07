@@ -39,23 +39,9 @@ namespace ChatBotWeb.Pages
 
             if (!ModelState.IsValid) { return Page(); }
 
-            //Verifycredentials
             if (await _auth.CheckCredentials(Credentials))
             {
-                //creating the security context
-
-                var claims = new List<Claim>
-                {
-                    new Claim("Username", Credentials.UserName),
-                    new Claim(ClaimTypes.Email, $"{Credentials.UserName}@pum.com"),
-                    new Claim("Department", "Evaluator"),
-                };
-
-                var identity = new ClaimsIdentity(claims, "MyCookieAuth");
-                var claimsPrincipal = new ClaimsPrincipal(identity);
-
-                await HttpContext.SignInAsync("MyCookieAuth", claimsPrincipal);
-
+                await _auth.LoginUser(Credentials);
                 return Redirect("/Index");
             }
 

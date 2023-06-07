@@ -28,7 +28,7 @@ namespace ChatRoom.Services.Services.Implementations
         public bool CheckCredentials(User credentials)
         {
             var user = _userRepository.GetUserByUsername(credentials.Username);
-            return user.Username == credentials.Username && user.Password == credentials.Password;
+            return user != null && user.Username == credentials.Username && user.Password == credentials.Password;
         }
     }
 }

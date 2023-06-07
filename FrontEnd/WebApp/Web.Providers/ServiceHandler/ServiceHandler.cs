@@ -23,7 +23,11 @@ namespace Web.Providers
 
         public async Task<T> Get<T>(string url)
         {
-            await GenerateToken();
+            if (_httpContextProvider.IsUserLogged())
+            {
+                await GenerateToken();
+            }
+
             var response = await client.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
@@ -36,7 +40,11 @@ namespace Web.Providers
 
         public async Task<T> Post<T>(string url, string payload)
         {
-            await GenerateToken();
+            if (_httpContextProvider.IsUserLogged())
+            {
+                await GenerateToken();
+            }
+
             var response = await client.PostAsync(url, CreateContent(payload));
 
             if (response.IsSuccessStatusCode)

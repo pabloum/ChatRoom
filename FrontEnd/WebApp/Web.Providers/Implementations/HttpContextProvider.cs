@@ -25,6 +25,11 @@ namespace Web.Providers.Implementations
             }
             return String.Empty;
         }
+
+        public bool IsUserLogged()
+        {
+            return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+        }
 	}
 }
 

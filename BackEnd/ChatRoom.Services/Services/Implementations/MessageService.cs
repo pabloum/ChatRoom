@@ -22,9 +22,8 @@ namespace ChatRoom.Services.Services.Implementations
 
         public Message CreateMessage(int roomId, MessageDTO message)
         {
-            var room = _roomRepository.GetById(roomId);
-            var user = _userRepository.GetUserByUsername(message.Username) ;
-            return _messageRepository.CreateMessage(roomId, message.MapToMessage(room, user));
+            var user = _userRepository.GetUserByUsername(message.Username);
+            return _messageRepository.CreateMessage(roomId, message.MapToMessage(user));
         }
 
         public IEnumerable<Message> GetMessagesByRoom(int roomId)

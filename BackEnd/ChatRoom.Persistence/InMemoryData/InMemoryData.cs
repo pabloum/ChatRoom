@@ -59,6 +59,9 @@ namespace ChatRoom.Persistence.InMemoryData
 
         public Message CreateMessage(Message message)
         {
+            message.Room = GetRoomById(message.RoomId);
+            message.User = GetUserById(message.UserId);
+
             message.MessageId = _inMemoryMessages.Max(r => r.MessageId) + 1;
             _inMemoryMessages.Add(message);
             return message;
@@ -79,6 +82,11 @@ namespace ChatRoom.Persistence.InMemoryData
         public User GetUserByUsername(string username)
         {
             return _inMemoryUsers.FirstOrDefault(u => u.Username == username);
+        }
+
+        public User GetUserById(int userId)
+        {
+            return _inMemoryUsers.FirstOrDefault(u => u.UserId == userId);
         }
 
         public Room GetRoomById(int roomId)

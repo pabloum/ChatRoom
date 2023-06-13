@@ -20,6 +20,9 @@ namespace ChatRoom.Repository.Implementations
         {
             if (_useDataBase)
             {
+                message.Room = null; // TODO: improve this
+                message.User = null;
+
                 var added = DbSet.Add(message);
                 _context.SaveChanges();
                 return added.Entity;

@@ -18,9 +18,16 @@ namespace ChatRoom.Repository.Implementations
 
         public User CreateUser(User user)
         {
-            return _useDataBase ?
-                    DbSet.Add(user).Entity
-                    : _inMemoryData.CreateUser(user);
+            if (_useDataBase)
+            {
+                var added = DbSet.Add(user);
+                _context.SaveChanges();
+                return added.Entity;
+            }
+            else
+            {
+                return _inMemoryData.CreateUser(user);
+            }
         }
 
         public User GetUserByUsername(string username)

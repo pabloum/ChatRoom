@@ -22,7 +22,16 @@ namespace ChatRoom.Repository
 
         public Room CreateRoom(Room room)
         {
-            return _useDataBase ? DbSet.Add(room).Entity : _inMemoryData.CreateRoom(room);
+            if (_useDataBase)
+            {
+                var added = DbSet.Add(room);
+                _context.SaveChanges();
+                return added.Entity;
+            }
+            else
+            {
+                return _inMemoryData.CreateRoom(room);
+            }
         }
 
         public Room GetById(int roomId)

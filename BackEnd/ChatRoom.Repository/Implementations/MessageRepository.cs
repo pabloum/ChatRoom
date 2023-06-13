@@ -18,15 +18,22 @@ namespace ChatRoom.Repository.Implementations
 
         public Message CreateMessage(int roomId, Message message)
         {
-            return _useDataBase ?
-                    DbSet.Add(message).Entity
-                 : _inMemoryData.CreateMessage(message);
+            if (_useDataBase)
+            {
+                var added = DbSet.Add(message);
+                _context.SaveChanges();
+                return added.Entity;
+            }
+            else
+            {
+                return _inMemoryData.CreateMessage(message);
+            }
         }
 
         public IEnumerable<Message> GetMessagesByRoom(int roomId)
         {
             var result = _useDataBase ?
-                    DbSet.AsNoTracking().Where(m => m.RoomId == roomId)
+                    DbSet.Include(m => m.User).Include(m => m.Room).AsNoTracking().Where(m => m.RoomId == roomId)
                 : _inMemoryData.GetMessegesByRoom(roomId);
 
             return result.Take(50).OrderBy(m => m.PostingTime);

@@ -18,9 +18,8 @@ namespace ChatRoom.Services.Services
             _meesageService = messageService;
         }
 
-        public async Task<string> GetStock(int roomId, string stockCode)
+        public async Task<string> GetStock(int roomId, string stockCode = "aapl.us")
         {
-            //var stockCodeExample = "aapl.us";
             var response = await _requestHandler.RequestStock(stockCode);
 
             if (response.IsSuccessStatusCode)

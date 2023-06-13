@@ -9,30 +9,48 @@ namespace ChatRoom.Api.ChatHub
 	public class ChatHub : Hub
 	{
         private readonly IMessageService _messageService;
+        private readonly IStockService _stockService;
 
-        public ChatHub(IMessageService messageService)
+        public ChatHub(IMessageService messageService, IStockService stockService)
 		{
             _messageService = messageService;
-		}
+            _stockService = stockService;
+        }
 
 		public async Task SendMessage(string roomId, string username, string message)
 		{
-			int.TryParse(roomId, out int roomIdInt);
-
-			var messageDto = new MessageDTO
+			if (int.TryParse(roomId, out int roomIdInt))
 			{
-				MessagePrompt = message,
-				RoomId = roomIdInt,
-				PostingTime = DateTime.Now,
-				Username = username
-			};
+				var messageDto = new MessageDTO
+				{
+					MessagePrompt = message,
+					RoomId = roomIdInt,
+					PostingTime = DateTime.Now,
+					Username = username
+				};
 
-            var result = _messageService.CreateMessage(roomIdInt, messageDto);
+				var newMessage = _messageService.CreateMessage(roomIdInt, messageDto);
+				var result = _messageService.GetMessagesByRoom(roomIdInt);
 
-			await Clients.Group(roomId.ToString()).SendAsync("ReceiveMessage", result);
+				await Clients.Group(roomId.ToString()).SendAsync("ReceiveMessage", result);
+			}
         }
 
-		public async Task SendStock()
+        public async Task GetStockQuote(string roomId, string stockCode)
+        {
+            if (int.TryParse(roomId, out int roomIdInt))
+			{
+				var stock = String.IsNullOrEmpty(stockCode) ? "aapl.us" : stockCode;
+
+                var newMessage = await _stockService.GetStock(roomIdInt, stock);
+				var result = _messageService.GetMessagesByRoom(roomIdInt);
+
+				await Clients.Group(roomId.ToString()).SendAsync("ReceiveMessage", result);
+			}
+
+        }
+
+        public async Task SendStock()
 		{
 
 		}

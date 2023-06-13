@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-2">
         <form method="post" asp-page-handler="Stock">
-            <input asp-for="StockQuote" type="text" class="form-control" value="" id="inputMessage" placeholder="Stock code here" />
+            <input asp-for="StockQuote" type="text" class="form-control" value="" id="inputStock" placeholder="Stock code here" />
             <button type="submit" class="btn btn-success" id="stockButton">Call Stock Bot</button>
         </form>
     </div>
@@ -38,11 +38,56 @@
 
 <div class="row">
     <div class="col-md-8 offset-2">
-        <form method="post" asp-page-handler="Message">
+
+        <div class="mb-3">
+            <input type="text" id="inputMessage" placeholder="Enter your message here" />
+        </div>
+
+        <button type="submit" id="submitMessage" class="btn btn-primary">Send</button>
+
+        @*<form method="post" asp-page-handler="Message">
             <div class="mb-3">
                 <input asp-for="NewMessage" type="text" class="form-control" value="" id="inputMessage" placeholder="Enter your message here" />
             </div>
             <button type="submit" class="btn btn-primary">Send</button>
-        </form>
+        </form>*@
+
     </div>
 </div>
+
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js">
+</script>
+
+@*<script src="~/js/signalRLogic.js"></script>*@
+
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:2701/chatroom").build();
+
+    connection.start().then(() => {
+        connection.invoke("AddToGroup", "@Model.Room.RoomId")
+    }).catch(() => console.error(e + " Error when start"));
+
+    document.getElementById("submitMessage").addEventListener("click", (event) => {
+
+        let roomId = "@Model.Room.RoomId";
+        let username = "@Model.User.FindFirst("Username").Value";
+        let message = document.getElementById("inputMessage").value
+
+        connection.invoke("SendMessage", roomId, username, message).catch((e) =>
+        {
+            console.error(e.toString() + " Error when invoking");
+        });
+
+        document.getElementById("inputMessage").value = ""; 
+        document.getElementById("inputMessage").focus();
+
+        event.preventDefault();
+    });
+
+
+    connection.on("ReceiveMessage", (result) => {
+        window.location.reload();
+    });
+
+</script>

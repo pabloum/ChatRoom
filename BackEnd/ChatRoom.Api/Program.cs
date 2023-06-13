@@ -7,7 +7,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "AllowSpecificOrigins",
         policy =>
         {
-            policy.WithOrigins(builder.Configuration.GetSection("AppUrl").Value)
+            policy.WithOrigins(builder.Configuration.GetSection("AppUrlFE").Value)
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials();

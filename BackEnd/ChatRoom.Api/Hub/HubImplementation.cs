@@ -1,20 +1,47 @@
 ﻿using System;
+using ChatRoom.Entities.Domain;
+using ChatRoom.Entities.DTO;
+using ChatRoom.Services.Services.Contracts;
 using Microsoft.AspNetCore.SignalR;
 
 namespace ChatRoom.Api.ChatHub
 {
-	public class HubImplementation : Hub
+	public class ChatHub : Hub
 	{
-		public async Task SendMessage(string room, string user, string message)
+        private readonly IMessageService _messageService;
+
+        public ChatHub(IMessageService messageService)
 		{
-			await Clients.Group(room).SendAsync("Receive message", user, message);
+            _messageService = messageService;
 		}
 
-		public async Task AddToGroup(string room)
+		public async Task SendMessage(string roomId, string username, string message)
 		{
-			await Groups.AddToGroupAsync(Context.ConnectionId, room);
+			int.TryParse(roomId, out int roomIdInt);
 
-            await Clients.Group(room).SendAsync("ShowWho",
+			var messageDto = new MessageDTO
+			{
+				MessagePrompt = message,
+				RoomId = roomIdInt,
+				PostingTime = DateTime.Now,
+				Username = username
+			};
+
+            var result = _messageService.CreateMessage(roomIdInt, messageDto);
+
+			await Clients.Group(roomId.ToString()).SendAsync("ReceiveMessage", result);
+        }
+
+		public async Task SendStock()
+		{
+
+		}
+
+		public async Task AddToGroup(string roomId)
+		{
+			await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
+
+            await Clients.Group(roomId).SendAsync("ShowWho",
 				$"Somebody connected {Context.ConnectionId}");
         }
     }

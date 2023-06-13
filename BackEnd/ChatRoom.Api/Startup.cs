@@ -3,6 +3,9 @@ using ChatRoom.Api.ChatHub;
 using ChatRoom.Api.Installers;
 using ChatRoom.Api.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ChatRoom.Api
@@ -66,19 +69,19 @@ namespace ChatRoom.Api
             app.UseCors("AllowSpecificOrigins");
 
             app.UseRouting();
-            app.MapControllers();
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
-
-
+            //app.MapControllers();
             app.UseEndpoints(e =>
             {
-                e.MapHub<HubImplementation>("/chat");
+                e.MapHub<ChatHub.ChatHub>("/chatroom");
+                e.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}");
             });
-
 
             app.Run();
         }

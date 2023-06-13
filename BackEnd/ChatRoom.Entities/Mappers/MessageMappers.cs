@@ -6,7 +6,7 @@ namespace ChatRoom.Entities.Mappers
 {
 	public static class MessageMappers
 	{
-        public static Message MapToMessage(this MessageDTO messageDTO, User user)
+        public static Message MapToMessage(this MessageDTO messageDTO)
         {
             return new Message
             {
@@ -14,7 +14,7 @@ namespace ChatRoom.Entities.Mappers
                 Room = null,
                 MessagePrompt = messageDTO.MessagePrompt,
                 PostingTime = messageDTO.PostingTime,
-                UserId = user.UserId,
+                UserId = messageDTO.UserId,
                 User = null
             };
         }

@@ -43,6 +43,7 @@ namespace ChatBotWeb
             services.AddScoped<IMessageProvider, MessageProvider>();
             services.AddScoped<IRoomProvider, RoomProvider>();
             services.AddScoped<IStockProvider, StockProvider>();
+            services.AddScoped<IUserProvider, UserProvider>();
             services.AddScoped<IServiceHandler, ServiceHandler>();
 
             services.AddHttpContextAccessor();

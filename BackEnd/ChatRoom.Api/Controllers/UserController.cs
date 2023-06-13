@@ -20,7 +20,7 @@ namespace ChatRoom.Api.Controllers
         }
 
         [Authorize]
-        [HttpGet("{id}")]
+        [HttpGet("{username}")]
         public ActionResult<User> GetUserById(string username)
         {
             var result = _userService.GetUserByUsername(username);

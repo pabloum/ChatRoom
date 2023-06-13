@@ -14,7 +14,8 @@ IF NOT EXISTS (SELECT TOP 1 [UserId] FROM [dbo].[User])
 BEGIN 
     INSERT INTO [dbo].[User] VALUES 
     ('Pablo Uribe', 'puribe', '123'),
-    ('Evaluator 1', 'evaluator', '123')
+    ('Evaluator 1', 'evaluator', '123'),
+    ('The Decoupled Bot', 'TheStockBot', '123')
 END
 
 IF NOT EXISTS (SELECT TOP 1 [MessageId] FROM [dbo].[Message])

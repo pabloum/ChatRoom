@@ -17,16 +17,17 @@ namespace ChatRoom.Api.ChatHub
             _stockService = stockService;
         }
 
-		public async Task SendMessage(string roomId, string username, string message)
+		public async Task SendMessage(string roomId, string username, string message, string userId)
 		{
-			if (int.TryParse(roomId, out int roomIdInt))
+			if (int.TryParse(roomId, out int roomIdInt) && int.TryParse(userId, out int userIdInt))
 			{
 				var messageDto = new MessageDTO
 				{
 					MessagePrompt = message,
 					RoomId = roomIdInt,
 					PostingTime = DateTime.Now,
-					Username = username
+					UserId = userIdInt,
+                    Username = username
 				};
 
 				var newMessage = _messageService.CreateMessage(roomIdInt, messageDto);

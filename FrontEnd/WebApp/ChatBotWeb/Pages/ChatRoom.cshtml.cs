@@ -8,6 +8,7 @@ using Web.Providers.Contracts;
 using Entities;
 using Web.Providers.Implementations;
 using Microsoft.AspNetCore.Authorization;
+using System.Reflection;
 
 namespace ChatBotWeb.Pages
 {
@@ -17,16 +18,19 @@ namespace ChatBotWeb.Pages
         private readonly IMessageProvider _messageProvider;
         private readonly IRoomProvider _roomProvider;
         private readonly IStockProvider _stockProvider;
+        private readonly IUserProvider _userProvider;
 
         public IEnumerable<Message> Messages { get; set; }
 
         public Room Room { get; set; }
+        public User LoggedUser { get; set; }
 
-        public ChatRoomModel(IMessageProvider messageProvider, IRoomProvider roomProvider, IStockProvider stockProvider)
+        public ChatRoomModel(IMessageProvider messageProvider, IRoomProvider roomProvider, IStockProvider stockProvider, IUserProvider userProvider)
         {
             _messageProvider = messageProvider;
             _roomProvider = roomProvider;
             _stockProvider = stockProvider;
+            _userProvider = userProvider;
         }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -38,6 +42,7 @@ namespace ChatBotWeb.Pages
 
             Messages = await _messageProvider.GetAllMessagedByRoom(id.Value);
             Room = await _roomProvider.GetRoomSpecs(id.Value);
+            LoggedUser = await _userProvider.GetUserByUsername(User.FindFirst("Username").Value);
 
             return Page();
         }

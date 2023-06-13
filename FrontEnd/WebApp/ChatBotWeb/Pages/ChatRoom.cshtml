@@ -54,9 +54,10 @@
     function sendMessage(event) {
         let roomId = "@Model.Room.RoomId";
         let username = "@Model.User.FindFirst("Username").Value";
+        let userId = "@Model.LoggedUser.UserId";
         let message = document.getElementById("inputMessage").value
 
-        connection.invoke("SendMessage", roomId, username, message).catch((e) =>
+        connection.invoke("SendMessage", roomId, username, message, userId).catch((e) =>
         {
             console.error(e.toString() + " Error when invoking");
         });

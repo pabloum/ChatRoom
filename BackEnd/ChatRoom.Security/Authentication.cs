@@ -23,29 +23,25 @@ namespace ChatRoom.Security
 
         public object GetToken(Credentials credentials)
         {
-            if (_userService.CheckCredentials(credentials.MapCredentialsToUser()))
+            var user = _userService.GetUserByUsername(credentials.Username);
+
+            var claims = new List<Claim>
             {
-                var user = _userService.GetUserByUsername(credentials.Username);
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim("Username", user.Username),
+                new Claim("UserId", user.UserId.ToString()),
+                new Claim(ClaimTypes.Email, $"{user.Username}@pum.com"),
+                new Claim("Department", "Evaluator"),
+            };
 
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.Name),
-                    new Claim("Username", user.Username),
-                    new Claim("UserId", user.UserId.ToString()),
-                    new Claim(ClaimTypes.Email, $"{user.Username}@pum.com"),
-                    new Claim("Department", "Evaluator"),
-                };
+            var expiresAt = DateTime.Now.AddHours(1);
 
-                var expiresAt = DateTime.Now.AddHours(1);
+            return new
+            {
+                access_token = CreateToken(claims, expiresAt),
+                expires_at = expiresAt
+            };
 
-                return new
-                {
-                    access_token = CreateToken(claims, expiresAt),
-                    expires_at = expiresAt
-                };
-            }
-
-            return null;
         }
 
         private string CreateToken(IEnumerable<Claim> claims, DateTime expiresAt)

@@ -62,6 +62,7 @@ namespace Web.Providers
             var payload = JsonSerializer.Serialize(new
             {
                 username = _httpContextProvider.GetClaim("Username"),
+                password = _httpContextProvider.GetSessionString("pass")
             });
 
             var response = await client.PostAsync("api/Authentication", CreateContent(payload));

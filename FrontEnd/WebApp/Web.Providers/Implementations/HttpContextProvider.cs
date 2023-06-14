@@ -30,6 +30,11 @@ namespace Web.Providers.Implementations
         {
             return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
         }
+
+        public string GetSessionString(string key)
+        {
+            return _httpContextAccessor.HttpContext.Session.GetString(key);
+        }
 	}
 }
 

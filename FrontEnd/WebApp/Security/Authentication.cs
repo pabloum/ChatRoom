@@ -50,6 +50,7 @@ namespace Security
             var identity = new ClaimsIdentity(claims, "MyCookieAuth");
             var claimsPrincipal = new ClaimsPrincipal(identity);
 
+            _httpContextAccessor.HttpContext.Session.SetString("pass", credentials.Password);
             await _httpContextAccessor.HttpContext.SignInAsync("MyCookieAuth", claimsPrincipal);
         }
 

@@ -35,6 +35,11 @@ namespace Web.Providers.Implementations
         {
             return _httpContextAccessor.HttpContext.Session.GetString(key);
         }
-	}
+
+        public void SetSessionString(string key, string value)
+        {
+            _httpContextAccessor.HttpContext.Session.SetString(key, value);
+        }
+    }
 }
 

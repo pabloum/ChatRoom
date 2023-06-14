@@ -6,6 +6,7 @@ namespace Web.Providers.Contracts
         string GetClaim(string claimName);
         bool IsUserLogged();
         string GetSessionString(string key);
+        void SetSessionString(string key, string value);
     }
 }
 

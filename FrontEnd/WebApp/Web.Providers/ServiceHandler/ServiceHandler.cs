@@ -19,6 +19,8 @@ namespace Web.Providers
             _httpContextProvider = httpContextProvider;
             client = httpClient;
             client.BaseAddress = new Uri("https://localhost:2701/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public async Task<T> Get<T>(string url)
@@ -57,24 +59,30 @@ namespace Web.Providers
 
         private async Task GenerateToken()
         {
-            string username = _httpContextProvider.GetClaim("Username");
-
-            var payload = JsonSerializer.Serialize(new
+            string bearerToken = _httpContextProvider.GetSessionString("token");
+           
+            if (String.IsNullOrEmpty(bearerToken) || DateTime.Parse(_httpContextProvider.GetSessionString("expires_at")) < DateTime.Now)
             {
-                username = _httpContextProvider.GetClaim("Username"),
-                password = _httpContextProvider.GetSessionString("pass")
-            });
+                string username = _httpContextProvider.GetClaim("Username");
 
-            var response = await client.PostAsync("api/Authentication", CreateContent(payload));
+                var payload = JsonSerializer.Serialize(new
+                {
+                    username = _httpContextProvider.GetClaim("Username"),
+                    password = _httpContextProvider.GetSessionString("pass")
+                });
 
-            if (response.IsSuccessStatusCode)
-            {
-                var bearerToken = (await response.Content.ReadAsAsync<TokenStructure>()).access_token;
+                var response = await client.PostAsync("api/Authentication", CreateContent(payload));
 
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+                if (response.IsSuccessStatusCode)
+                {
+                    var token = await response.Content.ReadAsAsync<TokenStructure>();
+                    bearerToken = token.access_token;
+                    _httpContextProvider.SetSessionString("access_token", bearerToken);
+                    _httpContextProvider.SetSessionString("expires_at", token.expires_at);
+                }
             }
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
         }
 
         private StringContent? CreateContent(string payload)

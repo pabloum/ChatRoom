@@ -12,7 +12,7 @@ You can use In Memory Data or an Actual Database, by setting the key "UseDataBas
 
 #### InMemory Data
 
-This was added only for developing and testing purposes. If you use this approach, the data will not persist after you stop running the application, and will be resestablish to the same default values everytime the app is executed. Use this approach if you don't want to (or cannot) create a local database.
+This was added only for developing and testing purposes. If you use this approach, the data will not persist after you stop running the application, and will be resestablished to the same default values everytime the app is executed. Use this approach if you don't want to (or cannot) create a local database.
 
 #### Database
 If you want to use the database you can Publish the database project in your local machine. SQL Server was the database engine chosen for this project. Note that a PostDeployment script will insert default Data.

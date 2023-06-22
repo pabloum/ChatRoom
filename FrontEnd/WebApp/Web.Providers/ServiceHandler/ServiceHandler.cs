@@ -7,6 +7,7 @@ using Entities;
 using Microsoft.AspNetCore.Http;
 using Web.Providers.Contracts;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 
 namespace Web.Providers
 {
@@ -27,10 +28,7 @@ namespace Web.Providers
 
         public async Task<T> Get<T>(string url)
         {
-            if (_httpContextProvider.IsUserLogged())
-            {
-                await GenerateToken();
-            }
+            await GenerateToken();
 
             var response = await client.GetAsync(url);
 
@@ -44,10 +42,7 @@ namespace Web.Providers
 
         public async Task<T> Post<T>(string url, string payload)
         {
-            if (_httpContextProvider.IsUserLogged())
-            {
-                await GenerateToken();
-            }
+            await GenerateToken();
 
             var response = await client.PostAsync(url, CreateContent(payload));
 
@@ -61,30 +56,38 @@ namespace Web.Providers
 
         private async Task GenerateToken()
         {
-            string bearerToken = _httpContextProvider.GetSessionString("token");
-           
-            if (String.IsNullOrEmpty(bearerToken) || DateTime.Parse(_httpContextProvider.GetSessionString("expires_at")) < DateTime.Now)
+            var token = new TokenStructure
             {
-                string username = _httpContextProvider.GetClaim("Username");
+                access_token = _httpContextProvider.GetSessionString("token"),
+                expires_at = _httpContextProvider.GetSessionString("expires_at")
+            };
 
-                var payload = JsonSerializer.Serialize(new
-                {
-                    username = _httpContextProvider.GetClaim("Username"),
-                    password = _httpContextProvider.GetSessionString("pass")
-                });
+            if (_httpContextProvider.IsUserLogged())
+            {
+                var isTokenInvalid = String.IsNullOrEmpty(token.access_token)
+                             || DateTime.Parse(token.expires_at) < DateTime.Now;
 
-                var response = await client.PostAsync("api/Authentication", CreateContent(payload));
+                token = isTokenInvalid ? await GetToken() : token;
 
-                if (response.IsSuccessStatusCode)
-                {
-                    var token = await response.Content.ReadAsAsync<TokenStructure>();
-                    bearerToken = token.access_token;
-                    _httpContextProvider.SetSessionString("access_token", bearerToken);
-                    _httpContextProvider.SetSessionString("expires_at", token.expires_at);
-                }
+                _httpContextProvider.SetSessionString("access_token", token.access_token);
+                _httpContextProvider.SetSessionString("expires_at", token.expires_at);
             }
 
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.access_token);
+        }
+
+        private async Task<TokenStructure> GetToken()
+        {
+            string username = _httpContextProvider.GetClaim("Username");
+
+            var payload = JsonSerializer.Serialize(new
+            {
+                username = _httpContextProvider.GetClaim("Username"),
+                password = _httpContextProvider.GetClaim("pass")
+            });
+
+            var response = await client.PostAsync("api/Authentication", CreateContent(payload));
+            return await response.Content.ReadAsAsync<TokenStructure>();
         }
 
         private StringContent? CreateContent(string payload)

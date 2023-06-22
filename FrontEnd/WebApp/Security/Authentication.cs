@@ -45,12 +45,12 @@ namespace Security
                 new Claim("Username", credentials.UserName),
                 new Claim(ClaimTypes.Email, $"{credentials.UserName}@pum.com"),
                 new Claim("Department", "Evaluator"),
+                new Claim("pass", credentials.Password),
             };
 
             var identity = new ClaimsIdentity(claims, "MyCookieAuth");
             var claimsPrincipal = new ClaimsPrincipal(identity);
 
-            _httpContextAccessor.HttpContext.Session.SetString("pass", credentials.Password);
             await _httpContextAccessor.HttpContext.SignInAsync("MyCookieAuth", claimsPrincipal);
         }
 

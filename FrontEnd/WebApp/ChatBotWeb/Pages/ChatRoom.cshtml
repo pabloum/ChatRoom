@@ -83,7 +83,7 @@
         event.preventDefault();
     }
 
-    var connection = new signalR.HubConnectionBuilder().withUrl("@Model.BackendUrl" + "/chatroom").build();
+    var connection = new signalR.HubConnectionBuilder().withUrl("@Model.BackendUrl" + "chatroom").build();
 
     connection.start().then(() => {
         connection.invoke("AddToGroup", "@Model.Room.RoomId")

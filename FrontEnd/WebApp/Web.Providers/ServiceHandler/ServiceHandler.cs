@@ -6,19 +6,21 @@ using System.Text.Json;
 using Entities;
 using Microsoft.AspNetCore.Http;
 using Web.Providers.Contracts;
+using Microsoft.Extensions.Configuration;
 
 namespace Web.Providers
 {
     public class ServiceHandler : IServiceHandler
     {
         private HttpClient client;
-        private IHttpContextProvider _httpContextProvider;
+        private readonly IHttpContextProvider _httpContextProvider;
 
-        public ServiceHandler(HttpClient httpClient, IHttpContextProvider httpContextProvider)
+        public ServiceHandler(IConfiguration configuration, HttpClient httpClient, IHttpContextProvider httpContextProvider)
         {
+            var backendUrl = configuration.GetSection("BackendBaseUrl").Value;
             _httpContextProvider = httpContextProvider;
             client = httpClient;
-            client.BaseAddress = new Uri("https://localhost:2701/");
+            client.BaseAddress = new Uri(backendUrl);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

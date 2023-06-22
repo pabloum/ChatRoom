@@ -83,7 +83,7 @@
         event.preventDefault();
     }
 
-    var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:2701/chatroom").build();
+    var connection = new signalR.HubConnectionBuilder().withUrl("https://192.168.10.101:2701/chatroom").build();
 
     connection.start().then(() => {
         connection.invoke("AddToGroup", "@Model.Room.RoomId")

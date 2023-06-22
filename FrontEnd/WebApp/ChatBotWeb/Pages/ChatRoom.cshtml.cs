@@ -9,28 +9,34 @@ using Entities;
 using Web.Providers.Implementations;
 using Microsoft.AspNetCore.Authorization;
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
 
 namespace ChatBotWeb.Pages
 {
     [Authorize]
-	public class ChatRoomModel : PageModel
+    public class ChatRoomModel : PageModel
     {
         private readonly IMessageProvider _messageProvider;
         private readonly IRoomProvider _roomProvider;
         private readonly IStockProvider _stockProvider;
         private readonly IUserProvider _userProvider;
+        private readonly IConfiguration _configuration;
 
         public IEnumerable<Message> Messages { get; set; }
 
         public Room Room { get; set; }
         public User LoggedUser { get; set; }
+        public readonly string BackendUrl; 
 
-        public ChatRoomModel(IMessageProvider messageProvider, IRoomProvider roomProvider, IStockProvider stockProvider, IUserProvider userProvider)
+        public ChatRoomModel(IConfiguration configuration, IMessageProvider messageProvider, IRoomProvider roomProvider, IStockProvider stockProvider, IUserProvider userProvider)
         {
+            _configuration = configuration;
             _messageProvider = messageProvider;
             _roomProvider = roomProvider;
             _stockProvider = stockProvider;
             _userProvider = userProvider;
+
+            BackendUrl = _configuration.GetSection("BackendBaseUrl").Value;
         }
 
         public async Task<IActionResult> OnGetAsync(int? id)
